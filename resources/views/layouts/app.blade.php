@@ -23,7 +23,7 @@
     <body class="bg-gray-200">
         <nav class="flex justify-between items-center bg-green-100 px-8 py-6 backdrop-filter backdrop-blur shadow-lg">
             <div class="flex items-center space-x-4">
-                <a href="" class="uppercase text-2xl font-bold">Foodie</a>
+                <a href="/" class="uppercase text-2xl font-bold">Foodie</a>
                 <a href="#category">Category</a>
                 <a href="#post">Post</a>
             </div>
@@ -36,11 +36,18 @@
                 </form>
             </div>
             <div class="flex items-center space-x-4">
+                @auth
                 <a href="#user">YinSin</a>
-                <a href="#login">Login</a>
-                <a href="#register">Register</a>
                 <a href="#logout">Logout</a>
+                @endauth
+                
+                @guest
+                <a href="{{ route('login') }}">Login</a>
+                <a href="{{ route('register') }}">Register</a>
+                @endguest
+                
             </div>
         </nav>
+        @yield('content')
     </body>
 </html>
