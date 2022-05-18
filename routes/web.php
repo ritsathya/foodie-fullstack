@@ -1,9 +1,10 @@
 <?php
 
-use App\Http\Controllers\LoginController;
-use App\Http\Controllers\PostController;
-use App\Http\Controllers\RegisterController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\PostController;
+use App\Http\Controllers\Auth\LoginController;
+use App\Http\Controllers\Auth\RegisterController;
+use App\Http\Controllers\Auth\ForgotPasswordController;
 
 /*
 |--------------------------------------------------------------------------
@@ -20,8 +21,11 @@ Route::get('/', function () {
     return view('layouts.app');
 });
 
-Route::get('/register', [RegisterController::class, 'index'])->name('register');
+Route::get('/auth/register', [RegisterController::class, 'index'])->name('auth.register');
 
-Route::get('/login', [LoginController::class, 'index'])->name('login');
+Route::get('/auth/login', [LoginController::class, 'index'])->name('auth.login');
+
+Route::get('/auth/forgot_password', [ForgotPasswordController::class, 'index'])->name('auth.forgot_password');
+
 
 Route::get('/post', [PostController::class, 'index'])->name('post');
