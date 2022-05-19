@@ -39,13 +39,21 @@
             </div>
             <div class="flex items-center space-x-4">
                 @auth
-                <a href="#user">YinSin</a>
-                <a href="#logout">Logout</a>
+                <a href="#user"> {{ auth()->user()->name }}</a>
+                <div>
+                    <a href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                        {{ __('Logout') }}
+                    </a>
+
+                    <form id="logout-form" action="{{ route('logout') }}" method="POST">
+                        @csrf
+                    </form>
+                </div>
                 @endauth
                 
                 @guest
-                <a href="{{ route('auth.login') }}">Login</a>
-                <a href="{{ route('auth.register') }}">Register</a>
+                <a href="{{ route('login') }}">Login</a>
+                <a href="{{ route('register') }}">Register</a>
                 @endguest
                 
             </div>

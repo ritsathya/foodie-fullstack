@@ -1,10 +1,14 @@
 <?php
 
-use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\PostController;
 use App\Http\Controllers\Auth\LoginController;
-use App\Http\Controllers\Auth\RegisterController;
-use App\Http\Controllers\Auth\ForgotPasswordController;
+use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Facade;
+
+// use App\Http\Controllers\PostController;
+// use App\Http\Controllers\Auth\LoginController;
+// use App\Http\Controllers\Auth\RegisterController;
+// use App\Http\Controllers\Auth\ForgotPasswordController;
 
 /*
 |--------------------------------------------------------------------------
@@ -21,11 +25,11 @@ Route::get('/', function () {
     return view('layouts.app');
 });
 
-Route::get('/auth/register', [RegisterController::class, 'index'])->name('auth.register');
-
-Route::get('/auth/login', [LoginController::class, 'index'])->name('auth.login');
-
-Route::get('/auth/forgot_password', [ForgotPasswordController::class, 'index'])->name('auth.forgot_password');
-
+Auth::routes();
 
 Route::get('/post', [PostController::class, 'index'])->name('post');
+
+Route::group(['middleware' => 'guest'],function(){
+    Route::get('/sign-in/facebook', [LoginController::class, 'facebook']);
+    Route::get('/sign-in/facebook/redirect', [LoginController::class, 'facebookRedirect']);
+ });
