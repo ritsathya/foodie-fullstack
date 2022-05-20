@@ -1,11 +1,12 @@
 <?php
 
+use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\PostController;
+use App\Http\Controllers\Auth\LoginController;
+use App\Http\Controllers\Auth\RegisterController;
+use App\Http\Controllers\Auth\ForgotPasswordController;
 use App\Http\Controllers\Auth\Dashboard\DashboardController;
 use App\Http\Controllers\Auth\Dashboard\SliderController;
-use App\Http\Controllers\LoginController;
-use App\Http\Controllers\PostController;
-use App\Http\Controllers\RegisterController;
-use Illuminate\Support\Facades\Route;
 
 /*
 |--------------------------------------------------------------------------
@@ -30,8 +31,11 @@ Route::get('/dashboard/index', [DashboardController::class, 'index'])->name('das
 Route::get('/dashboard/slider', [SliderController::class, 'index'])->name('dashboard.slider');
 Route::get('/dashboard/slider/add', [SliderController::class, 'create'])->name('dashboard.slider.add');
 
-Route::get('/register', [RegisterController::class, 'index'])->name('register');
+Route::get('/auth/register', [RegisterController::class, 'index'])->name('auth.register');
 
-Route::get('/login', [LoginController::class, 'index'])->name('login');
+Route::get('/auth/login', [LoginController::class, 'index'])->name('auth.login');
+
+Route::get('/auth/forgot_password', [ForgotPasswordController::class, 'index'])->name('auth.forgot_password');
+
 
 Route::get('/post', [PostController::class, 'index'])->name('post');

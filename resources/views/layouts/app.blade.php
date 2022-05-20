@@ -44,8 +44,8 @@
                 @endauth
                 
                 @guest
-                <a href="{{ route('login') }}">Login</a>
-                <a href="{{ route('register') }}">Register</a>
+                <a href="{{ route('auth.login') }}">Login</a>
+                <a href="{{ route('auth.register') }}">Register</a>
                 @endguest
                 
             </div>
