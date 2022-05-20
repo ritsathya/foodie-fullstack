@@ -26,7 +26,7 @@
         <nav class="flex justify-between items-center bg-green-100 px-8 py-6 backdrop-filter backdrop-blur shadow-md">
             <div class="flex items-center space-x-4">
                 <a href="/" class="uppercase text-2xl font-bold">Foodie</a>
-                <a href="#category">Category</a>
+                <a href="{{ route('category') }}">Category</a>
                 <a href="{{ route('post') }}">Post</a>
             </div>
             <div>
