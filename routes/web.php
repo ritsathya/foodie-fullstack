@@ -19,7 +19,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('layouts.app');
+    return view('home');
 });
 
 Route::get('/dashboard', function () {
@@ -28,6 +28,7 @@ Route::get('/dashboard', function () {
 
 Route::get('/dashboard/index', [DashboardController::class, 'index'])->name('dashboard.index');
 Route::get('/dashboard/slider', [SliderController::class, 'index'])->name('dashboard.slider');
+Route::get('/dashboard/slider/add', [SliderController::class, 'create'])->name('dashboard.slider.add');
 
 Route::get('/register', [RegisterController::class, 'index'])->name('register');
 

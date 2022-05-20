@@ -9,6 +9,11 @@ class SliderController extends Controller
 {
     public function index()
     {
-        return view('auth.dashboard.slider');
+        return view('dashboard.slider.index');
+    }
+
+    public function create()
+    {
+        return view('dashboard.slider.create');
     }
 }
