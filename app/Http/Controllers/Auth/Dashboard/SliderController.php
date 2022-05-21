@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Slider;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Gate;
 
 class SliderController extends Controller
 {
@@ -34,8 +35,8 @@ class SliderController extends Controller
         $slide->title = $request->title;
         if($request->file('image')){
             $file= $request->file('image');
-            $filename= time() . '-' . $file->getClientOriginalName();
-            $file-> move(public_path('Images'), $filename);
+            $filename = time() . '-' . $file->getClientOriginalName();
+            $request->image->storeAs('slides', $filename, 'public');
             $slide->image = $filename;
         }
         $slide->status = $request->status === 'active' ? 1 : 0;

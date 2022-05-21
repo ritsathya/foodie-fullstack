@@ -23,16 +23,20 @@
 <div id="default-carousel" class="relative" data-carousel="slide">
   <!-- Carousel wrapper -->
   <div class="overflow-hidden relative h-56 rounded-lg sm:h-64 xl:h-80 2xl:h-96">
-    @foreach ($slides as $slide)    
-    <div class="hidden duration-700 ease-in-out" data-carousel-item>
-        <img src="{{ url('Images/'.$slide->image) }}" class="block absolute top-1/2 left-1/2 w-full -translate-x-1/2 -translate-y-1/2" alt="{{ $slide->title }}">
-    </div>
+    @foreach ($slides as $slide) 
+        @if ($slide->status)
+            <div class="hidden duration-700 ease-in-out" data-carousel-item>
+                <img src="{{ asset('storage/slides/'.$slide->image) }}" class="block absolute top-1/2 left-1/2 w-full -translate-x-1/2 -translate-y-1/2" alt="{{ $slide->title }}">
+            </div>
+        @endif  
     @endforeach
   </div>
   <!-- Slider indicators -->
   <div class="flex absolute bottom-5 left-1/2 z-30 space-x-3 -translate-x-1/2">
     @foreach ($slides as $slide)
-    <button type="button" class="w-3 h-3 rounded-full" aria-current="false" aria-label="Slide {{ $slide->id}}" data-carousel-slide-to="{{ $slide->id}}"></button>
+        @if ($slide->status)
+            <button type="button" class="w-3 h-3 rounded-full" aria-current="false" aria-label="Slide {{ $slide->id}}" data-carousel-slide-to="{{ $slide->id}}"></button>
+        @endif
     @endforeach
   </div>
   <!-- Slider controls -->
@@ -58,7 +62,7 @@
         @foreach ($slides as $slide)
         <div class="max-w-sm bg-white rounded-lg border border-gray-200 shadow-md dark:bg-gray-800 dark:border-gray-700">
             <a href="#">
-                <img class="h-48 w-full rounded-t-lg" src="{{ url('Images/'.$slide->image) }}" alt="" />
+                <img class="h-48 w-full rounded-t-lg" src="{{ asset('storage/slides/'.$slide->image) }}" alt="" />
             </a>
             <div class="p-5">
                 <a href="#">
@@ -83,7 +87,7 @@
         @foreach ($slides as $slide)
         <div class="max-w-sm bg-white rounded-lg border border-gray-200 shadow-md dark:bg-gray-800 dark:border-gray-700">
             <a href="#">
-                <img class="h-48 w-full rounded-t-lg" src="{{ url('Images/'.$slide->image) }}" alt="" />
+                <img class="h-48 w-full rounded-t-lg" src="{{ asset('storage/slides/'.$slide->image) }}" alt="" />
             </a>
             <div class="p-5">
                 <a href="#">
