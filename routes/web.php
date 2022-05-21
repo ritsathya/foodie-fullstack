@@ -5,7 +5,7 @@ use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Facade;
 
-// use App\Http\Controllers\PostController;
+use App\Http\Controllers\PostController;
 // use App\Http\Controllers\Auth\LoginController;
 // use App\Http\Controllers\Auth\RegisterController;
 // use App\Http\Controllers\Auth\ForgotPasswordController;
@@ -30,11 +30,8 @@ Route::get('/', function () {
 });
 
 Auth::routes();
-Route::get('/dashboard', function () {
-    return view('layouts.dashboard');
-})->name('dashboard');
 
-Route::get('/dashboard/index', [DashboardController::class, 'index'])->name('dashboard.index');
+Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
 Route::get('/dashboard/slider', [SliderController::class, 'index'])->name('dashboard.slider');
 Route::get('/dashboard/slider/add', [SliderController::class, 'create'])->name('dashboard.slider.add');
 Route::post('/dashboard/slider/add', [SliderController::class, 'store']);
@@ -42,9 +39,7 @@ Route::delete('/dashboard/slider/{slider}', [SliderController::class, 'destroy']
 
 
 // Route::get('/auth/register', [RegisterController::class, 'index'])->name('auth.register');
-
 // Route::get('/auth/login', [LoginController::class, 'index'])->name('auth.login');
-
 // Route::get('/auth/forgot_password', [ForgotPasswordController::class, 'index'])->name('auth.forgot_password');
 
 Route::get('/post', [PostController::class, 'index'])->name('post');

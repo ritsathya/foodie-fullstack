@@ -11,7 +11,7 @@ class SliderController extends Controller
 {
     public function index()
     {
-        $slides = Slider::paginate(10);
+        $slides = Slider::paginate(4);
         return view('dashboard.slider.index', [
             'slides' => $slides,
         ]);
@@ -41,7 +41,7 @@ class SliderController extends Controller
         $slide->status = $request->status === 'active' ? 1 : 0;
         $slide->save();
 
-        return redirect()->route('dashboard.slider');
+        return redirect()->route('dashboard.slider')->with('message', 'Slide has been added successfully!');
     }
 
     public function destroy(Slider $slider)

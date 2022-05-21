@@ -6,6 +6,14 @@
     <i class="fas fa-map"></i>
     <span class="ml-1">Slider</span>
   </div>
+
+  @if (Session::has('message'))
+      
+  <div class="p-4 mt-4 mb-4 text-sm text-green-700 bg-green-100 rounded-lg dark:bg-green-200 dark:text-green-800" role="alert">
+    <span class="font-medium">Success alert!</span> {{Session::get('message')}}
+  </div>
+  @endif
+
   <div class="w-full mt-4 shadow-md">
     <div class="flex justify-between items-center p-4 bg-gray-100 border-b rounded-t-lg">
       <h2>All slides</h2>
@@ -60,6 +68,9 @@
     @else
       <div class="bg-white p-4 text-center text-xl">Slide is empty!</div>
     @endif        
+  </div>
+  <div class="mt-2">
+    {{ $slides->links() }}
   </div>
 </div>
 @endsection

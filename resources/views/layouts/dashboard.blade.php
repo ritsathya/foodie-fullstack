@@ -16,7 +16,7 @@
       <a href="/" class="block font-bold text-2xl text-center uppercase mb-8">Foodie</a>
       <ul class="space-y-4 w-full mb-4">
         <li>
-          <a href="{{ route('dashboard.index') }}" class="p-2 text-base font-normal text-gray-900 hover:text-blue-500">
+          <a href="{{ route('dashboard') }}" class="p-2 text-base font-normal text-gray-900 hover:text-blue-500">
             <i class="fas fa-pager"></i>
             <span class="ml-2">Dashboard</span>
           </a>
