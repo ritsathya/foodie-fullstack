@@ -17,10 +17,11 @@
         >Go back</a>
     </div>
     <div>
-      <form action="" class="p-4">
+      <form action="{{ route('dashboard.slider.add') }}" method="POST" enctype="multipart/form-data" class="p-4">
+        @csrf
         <div class="flex flex-col items-center justify-center mt-4">
           <div class="mb-3 w-6/12 xl:w-4/12">
-            <label for="exampleText0" class="form-label inline-block mb-2 mr-2 text-gray-700"
+            <label for="title" class="form-label inline-block mb-2 mr-2 text-gray-700"
               >Title</label
             >
             <input
@@ -41,13 +42,22 @@
                 ease-in-out
                 m-0
                 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none
+                @error('title') border-red-500 @enderror
               "
-              id="exampleText0"
+              name="title"
+              id="title"
               placeholder="Text input"
+              value="{{ old('title') }}"
             />
+
+            @error('title')
+            <div class="text-red-500 mt-2 text-sm">
+              {{ $message }}
+            </div>
+            @enderror
           </div>
           <div class="mb-3 w-6/12 xl:w-4/12">
-            <label for="formFile" class="form-label inline-block mb-2 text-gray-700">Image</label>
+            <label for="image" class="form-label inline-block mb-2 text-gray-700">Image</label>
             <input class="form-control
             block
             w-full
@@ -62,7 +72,13 @@
             transition
             ease-in-out
             m-0
-            focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none" type="file" id="formFile">
+            @error('image') border-red-500 @enderror
+            focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none" type="file" accept="image/*" name="image" id="image">
+            @error('image')
+            <div class="text-red-500 mt-2 text-sm">
+              {{ $message }}
+            </div>
+            @enderror
           </div>
           <div class="mb-3 w-6/12 xl:w-4/12">
             <label for="status">Status</label>
@@ -80,11 +96,17 @@
               transition
               ease-in-out
               m-0
+              @error('status') border-red-500 @enderror
               focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none" aria-label="Default select example" name="status" id="status">
                 <option disabled selected>Choose image status</option>
                 <option value="active">Active</option>
                 <option value="inactive">Inactive</option>
             </select>
+            @error('status')
+            <div class="text-red-500 mt-2 text-sm">
+              {{ $message }}
+            </div>
+            @enderror
           </div>
           <button
             type="submit"

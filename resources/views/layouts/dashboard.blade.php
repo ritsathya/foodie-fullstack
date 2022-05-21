@@ -13,7 +13,7 @@
 <div class="flex">
   <aside class="w-64 h-full" aria-label="Sidebar">
     <div class="h-screen overflow-y-auto py-4 px-3 bg-gray-50 rounded-lg shadow-md">
-      <h2 class="font-bold text-2xl text-center uppercase mb-8">Foodie</h2>
+      <a href="/" class="block font-bold text-2xl text-center uppercase mb-8">Foodie</a>
       <ul class="space-y-4 w-full mb-4">
         <li>
           <a href="{{ route('dashboard.index') }}" class="p-2 text-base font-normal text-gray-900 hover:text-blue-500">

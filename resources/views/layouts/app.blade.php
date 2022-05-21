@@ -52,5 +52,6 @@
         </nav>
         @yield('content')
         <script src="https://unpkg.com/flowbite@1.4.5/dist/flowbite.js"></script> 
+        {{-- <script src="{{ asset('js/app.js') }}"></script> --}}
     </body>
 </html>
