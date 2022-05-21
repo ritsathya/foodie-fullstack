@@ -45,7 +45,7 @@ Route::group(['middleware' => 'guest'],function(){
     Route::get('/sign-in/facebook/redirect', [LoginController::class, 'facebookRedirect']);
  });
 
-Route::middleware('can:access-dashboard')->group(function () {
+Route::group(['middleware' => 'can:access-dashboard'], function() {
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
     Route::get('/dashboard/slider', [SliderController::class, 'index'])->name('dashboard.slider');
     Route::get('/dashboard/slider/add', [SliderController::class, 'create'])->name('dashboard.slider.add');
