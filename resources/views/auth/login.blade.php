@@ -2,7 +2,7 @@
 
 @section('content')
   <div class="flex justify-center w-full">
-    <div class="bg-white p-8 mt-[100px] rounded-lg shadow-xl w-4/12 sm:w-8/12 md:w-6/12">
+    <div class="bg-white p-8 mt-[100px] rounded-lg shadow-xl w-7/12 md:w-6/12 lg:w-5/12 xl:w-3/12">
       <form method="POST" action="{{ route('login') }}">
         <h2 class="font-medium leading-tight text-center text-4xl mt-0 mb-4">Login</h2>
         <div class="mb-4 relative">
