@@ -29,7 +29,7 @@ class AuthServiceProvider extends ServiceProvider
 
         //
         Gate::define('access-dashboard', function (User $user) {
-            return $user->id === 1 ? Response::allow()
+            return $user->role === 'admin' ? Response::allow()
                                    : Response::deny('You must be an administrator.');
         });
     }
