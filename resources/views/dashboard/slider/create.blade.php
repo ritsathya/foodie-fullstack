@@ -98,9 +98,9 @@
               m-0
               @error('status') border-red-500 @enderror
               focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none" aria-label="Default select example" name="status" id="status">
-                <option disabled selected>Choose the status</option>
+                <option disabled selected>Choose image status</option>
                 <option value="active">Active</option>
-                <option value="inactive">Inative</option>
+                <option value="inactive">Inactive</option>
             </select>
             @error('status')
             <div class="text-red-500 mt-2 text-sm">
