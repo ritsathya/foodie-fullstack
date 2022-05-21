@@ -43,7 +43,7 @@
                 {{ $slide->id }}
               </th>
               <td class="w-40 p-2">
-                <img src="{{ url('Images/'.$slide->image) }}" class="w-40 h-24 rounded-lg">
+                <img src="{{ asset('storage/slides/'.$slide->image) }}" class="w-40 h-24 rounded-lg">
               </td>
               <td class="text-sm font-normal text-gray-900 px-6 py-4 text-center">
                 {{ $slide->title }}
