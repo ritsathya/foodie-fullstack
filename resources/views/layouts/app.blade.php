@@ -32,9 +32,10 @@
             </div>
             <div>
                 <form action="#search">
-                    <div>
+                    <div class="relative">
                         <label for="search" class="sr-only">search</label>
-                        <input type="text" name="search" id="search" class="border-2 text-lg px-4 rounded-lg" placeholder="Find food recipe">
+                        <span class="pointer-events-none w-8 text-gray-500 absolute top-1/2 transform -translate-y-1/2 left-3"><i class="fas fa-search"></i></span>
+                        <input type="text" name="search" id="search" class="border-2 text-lg py-1 pl-8 rounded-lg shadow-inner" placeholder="Find food recipe">
                     </div>
                 </form>
             </div>
