@@ -58,7 +58,7 @@
         <h3>All-Day Breakfast</h3>
         <a href="#view_all">View All</a>
     </div>
-    <div class="grid grid-cols-4 gap-7 px-8 py-24 md:grid-cols-3 xl:grid-cols-5">
+    <div class="grid grid-cols-4 gap-7 px-8 py-24 md:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5">
         @foreach ($slides as $slide)
         <div class="max-w-sm bg-white rounded-lg border border-gray-200 shadow-md dark:bg-gray-800 dark:border-gray-700">
             <a href="#">
@@ -83,7 +83,7 @@
         <h3>Healthy Treats</h3>
         <a href="#view_all">View All</a>
     </div>
-    <div class="grid grid-cols-4 gap-7 px-8 py-24 md:grid-cols-3 xl:grid-cols-5">
+    <div class="grid grid-cols-4 gap-7 px-8 py-24 md:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5">
         @foreach ($slides as $slide)
         <div class="max-w-sm bg-white rounded-lg border border-gray-200 shadow-md dark:bg-gray-800 dark:border-gray-700">
             <a href="#">
