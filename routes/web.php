@@ -12,6 +12,7 @@ use App\Http\Controllers\PostController;
 use App\Models\Slider;
 use App\Http\Controllers\Auth\Dashboard\SliderController;
 use App\Http\Controllers\Auth\Dashboard\DashboardController;
+use App\Http\Controllers\CategoryController;
 
 /*
 |--------------------------------------------------------------------------
@@ -52,3 +53,7 @@ Route::group(['middleware' => 'can:access-dashboard'], function() {
     Route::post('/dashboard/slider/add', [SliderController::class, 'store']);
     Route::delete('/dashboard/slider/{slider}', [SliderController::class, 'destroy']);
 });
+
+Route::post('/category/add', [CategoryController::class, 'store'])->name('add-category');
+Route::put('/category/{id}', [CategoryController::class, 'update'])->name('update-category');
+Route::delete('/category/{id}', [CategoryController::class, 'destroy'])->name('delete-category');
