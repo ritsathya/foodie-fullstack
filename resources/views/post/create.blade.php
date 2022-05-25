@@ -28,8 +28,9 @@
             <label for="video" class="shrink w-2/12">Video URL</label>
             <input type="url" name="video" id="video" class="bg-gray-100 border-2 w-10/12 rounded py-1 px-2" placeholder="For example: https://www.youtube.com/watch?v=2kl3Liy5jcQ" value="">
           </div>
-          <div class="flex items-center space-x-4 mb-4 p-6 border-b">
+          <div class="flex items-start space-x-4 mb-4 p-6 border-b">
             <label for="category" class="shrink w-2/12">Category</label>
+<<<<<<< HEAD
             <select name="category" id="category" class="bg-gray-100 border-2 w-10/12 rounded py-1 px-2" required>
               <option value="" disabled selected>Select category for your recipe</option>
               
@@ -38,10 +39,22 @@
               @endforeach
               
             </select>
+=======
+            <div class="w-10/12 grid grid-rows-4 grid-flow-col gap-4">
+              <div class="flex items-center mr-4">
+                <input checked id="category-1" name="categories[0]" type="checkbox" value="" class="w-4 h-4 text-green-600 bg-gray-100 rounded border-gray-300 focus:ring-green-500 focus:ring-2">
+                <label for="category-1" class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">Breakfast</label>
+              </div>
+              <div class="flex items-center mr-4">
+                <input checked id="category-2" name="categories[1]" type="checkbox" value="" class="w-4 h-4 text-green-600 bg-gray-100 rounded border-gray-300 focus:ring-green-500 focus:ring-2">
+                <label for="category-2" class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">Lunch</label>
+              </div>
+            </div>
+>>>>>>> 4f0071bd212714013b6c4161a24b02b7abfd644d
           </div>
           <div class="flex items-start space-x-4 mb-4 p-6 border-b">
             <p class="shrink w-2/12">Flavour</p>
-            <div class="w-10/12 space-y-4 py-1 px-2">
+            <div class="w-10/12 grid grid-rows-4 grid-flow-col gap-4">
               <div class="flex items-center mr-4">
                 <input checked id="flavour-1" name="flavours[0]" type="checkbox" value="" class="w-4 h-4 text-green-600 bg-gray-100 rounded border-gray-300 focus:ring-green-500 focus:ring-2">
                 <label for="flavour-1" class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">Sweet</label>
@@ -71,6 +84,14 @@
             <div class="w-10/12">
               <x-forms.tinymce-editor/>
             </div>
+          </div>
+          <div class="flex items-center space-x-4 mb-4 p-6 border-b">
+            <label for="prep-time" class="shrink w-2/12">Preparation time</label>
+            <input type="number" min="1" name="prep-time" id="prep-time" class="bg-gray-100 border-2 rounded py-1 px-2" placeholder="in minutes (optional)" value="">
+          </div>
+          <div class="flex items-center space-x-4 mb-4 p-6 border-b">
+            <label for="cook-time" class="shrink w-2/12">Cooking time</label>
+            <input type="number" min="1" name="cook-time" id="cook-time" class="bg-gray-100 border-2 rounded py-1 px-2" placeholder="in minutes (optional)" value="">
           </div>
           <div class="flex items-start space-x-4 mb-4 p-6 border-b">
             <p class="shrink w-2/12">Skill level</p>

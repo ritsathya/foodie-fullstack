@@ -2,33 +2,29 @@
 
 @section('content')
   <div class="flex justify-center w-full">
-    <div class="bg-white p-8 mt-[100px] rounded-lg shadow-xl w-7/12 md:w-6/12 lg:w-5/12 xl:w-3/12">
+    <div class="bg-white p-8 mt-[100px] rounded-lg shadow-xl w-7/12 md:w-6/12 lg:w-5/12 xl:w-4/12 2xl:w-3/12">
       <form method="POST" action="{{ route('login') }}">
         <h2 class="font-medium leading-tight text-center text-4xl mt-0 mb-4">Login</h2>
-        <div class="mb-4 relative">
+        <div class="relative">
           <label for="email" class="sr-only">Email</label>
           <span class="pointer-events-none w-8 text-gray-500 absolute top-1/2 transform -translate-y-1/2 left-3"><i class="fas fa-envelope"></i></span>
-          <input type="email" name="email" id="email" class="bg-gray-100 w-full py-4 pl-8 border-2 rounded-lg shadow-inner" placeholder="Put your email" value="" required>
-        
-          @error('email')
-              <span class="invalid-feedback" role="alert">
-                  <strong>{{ $message }}</strong>
-              </span>
-          @enderror
-        
+          <input type="email" name="email" id="email" class="bg-gray-100 w-full py-4 pl-8 border-2 rounded-lg shadow-inner @error('email') border-red-500 @enderror" placeholder="Put your email" value="{{ old('email') }}" required>
         </div>
-        <div class="mb-4 relative">
+        @error('email')
+          <div class="my-2 text-red-500 text-sm">
+            {{ $message }}
+          </div>
+        @enderror
+        <div class="my-4 relative">
           <label for="password" class="sr-only">Password</label>
           <span class="pointer-events-none w-8 text-gray-500 absolute top-1/2 transform -translate-y-1/2 left-3"><i class="fas fa-lock"></i></span>
-          <input type="password" name="password" id="password" class="bg-gray-100 w-full py-4 pl-8 border-2 rounded-lg shadow-inner" placeholder="Choose a password" value="">
-        
-          @error('password')
-              <span role="alert">
-                  <strong>{{ $message }}</strong>
-              </span>
-          @enderror
-        
+          <input type="password" name="password" id="password" class="bg-gray-100 w-full py-4 pl-8 border-2 rounded-lg shadow-inner @error('email') border-red-500 @enderror" placeholder="Choose a password" value="">
         </div>
+        @error('email')
+          <div class="my-2 text-red-500 text-sm">
+            {{ $message }}
+          </div>
+        @enderror
         <div class="mb-4 flex justify-between">
           <div class="flex items-center">
             <input type="checkbox" name="remember" id="remember" class="mr-2">

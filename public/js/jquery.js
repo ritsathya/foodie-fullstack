@@ -1,8 +1,17 @@
 $(function () {
+<<<<<<< HEAD
     var i = 0;
     $("#add").on("click", function () {
         i++;
         $("#dynamic_field").append(`
+=======
+  $('input[type=checkbox]').removeAttr('checked');
+  
+  var i=0;  
+  $('#add').on('click', function(){  
+        i++;  
+        $('#dynamic_field').append(`
+>>>>>>> 4f0071bd212714013b6c4161a24b02b7abfd644d
         <tr id="row${i}" class="dynamic-added">
           <td><input type="text" name="ingredients[${i}][name]" placeholder="Ingredient name" class="border-2 p-1 mr-2 mb-2 rounded-md" required/></td>  
           <td><input type="text" name="ingredients[${i}][amount]" placeholder="Amount" class="border-2 p-1 mb-2 rounded-md" required/></td>
