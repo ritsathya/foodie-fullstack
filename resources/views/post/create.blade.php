@@ -8,11 +8,11 @@
           @csrf
           <div class="flex items-center space-x-4 mb-4 p-6 border-b">
             <label for="title" class="shrink w-2/12">Recipe Title</label>
-            <input type="text" name="title" id="title" class="bg-gray-100 border-2 w-10/12 rounded py-1 px-2" placeholder="What do you call this recipe?" value="">
+            <input type="text" name="title" id="title" class="bg-gray-100 border-2 w-10/12 rounded py-1 px-2" placeholder="What do you call this recipe?" value="" required>
           </div>
           <div class="flex items-start space-x-4 mb-4 p-6 border-b">
             <label for="description" class="shrink w-2/12">Description</label>
-            <textarea name="description" id="description" cols="30" rows="5" class="bg-gray-100 border-2 w-10/12 rounded py-1 px-2"></textarea>
+            <textarea name="description" id="description" cols="30" rows="5" class="bg-gray-100 border-2 w-10/12 rounded py-1 px-2" required></textarea>
           </div>
           <div class="flex items-start space-x-4 mb-4 p-6 border-b">
             <label for="image" class="shrink w-2/12">Image</label>
@@ -28,21 +28,22 @@
             <label for="video" class="shrink w-2/12">Video URL</label>
             <input type="url" name="video" id="video" class="bg-gray-100 border-2 w-10/12 rounded py-1 px-2" placeholder="For example: https://www.youtube.com/watch?v=2kl3Liy5jcQ" value="">
           </div>
-          <div class="flex items-center space-x-4 mb-4 p-6 border-b">
+          <div class="flex items-start space-x-4 mb-4 p-6 border-b">
             <label for="category" class="shrink w-2/12">Category</label>
-            <select name="category" id="category" class="bg-gray-100 border-2 w-10/12 rounded py-1 px-2">
-              <option value="" disabled selected>Select category for your recipe</option>
-              <option value="all">All</option>
-              <option value="breakfast">Breakfast</option>
-              <option value="lunch">Lunch</option>
-              <option value="dinner">Dinner</option>
-              <option value="dessert">Dessert</option>
-              <option value="beverages">Beverages</option>
-            </select>
+            <div class="w-10/12 grid grid-rows-4 grid-flow-col gap-4">
+              <div class="flex items-center mr-4">
+                <input checked id="category-1" name="categories[0]" type="checkbox" value="" class="w-4 h-4 text-green-600 bg-gray-100 rounded border-gray-300 focus:ring-green-500 focus:ring-2">
+                <label for="category-1" class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">Breakfast</label>
+              </div>
+              <div class="flex items-center mr-4">
+                <input checked id="category-2" name="categories[1]" type="checkbox" value="" class="w-4 h-4 text-green-600 bg-gray-100 rounded border-gray-300 focus:ring-green-500 focus:ring-2">
+                <label for="category-2" class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">Lunch</label>
+              </div>
+            </div>
           </div>
           <div class="flex items-start space-x-4 mb-4 p-6 border-b">
             <p class="shrink w-2/12">Flavour</p>
-            <div class="w-10/12 space-y-4 py-1 px-2">
+            <div class="w-10/12 grid grid-rows-4 grid-flow-col gap-4">
               <div class="flex items-center mr-4">
                 <input checked id="flavour-1" name="flavours[0]" type="checkbox" value="" class="w-4 h-4 text-green-600 bg-gray-100 rounded border-gray-300 focus:ring-green-500 focus:ring-2">
                 <label for="flavour-1" class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">Sweet</label>
@@ -59,8 +60,8 @@
               <div id="ingredient-wrapper">
                 <table class="table-auto" id="dynamic_field"> 
                   <tr>  
-                    <td><input type="text" name="ingredients[0][name]" placeholder="Ingredient name" class="border-2 p-1 mr-2 mb-2 rounded-md" /></td>  
-                    <td><input type="text" name="ingredients[0][amount]" placeholder="Amount" class="border-2 p-1 mb-2 rounded-md" /></td>  
+                    <td><input type="text" name="ingredients[0][name]" placeholder="Ingredient name" class="border-2 p-1 mr-2 mb-2 rounded-md" required/></td>  
+                    <td><input type="text" name="ingredients[0][amount]" placeholder="Amount" class="border-2 p-1 mb-2 rounded-md" required/></td>  
                   </tr>  
                 </table>  
               </div>
@@ -72,6 +73,14 @@
             <div class="w-10/12">
               <x-forms.tinymce-editor/>
             </div>
+          </div>
+          <div class="flex items-center space-x-4 mb-4 p-6 border-b">
+            <label for="prep-time" class="shrink w-2/12">Preparation time</label>
+            <input type="number" min="1" name="prep-time" id="prep-time" class="bg-gray-100 border-2 rounded py-1 px-2" placeholder="in minutes (optional)" value="">
+          </div>
+          <div class="flex items-center space-x-4 mb-4 p-6 border-b">
+            <label for="cook-time" class="shrink w-2/12">Cooking time</label>
+            <input type="number" min="1" name="cook-time" id="cook-time" class="bg-gray-100 border-2 rounded py-1 px-2" placeholder="in minutes (optional)" value="">
           </div>
           <div class="flex items-start space-x-4 mb-4 p-6 border-b">
             <p class="shrink w-2/12">Skill level</p>
