@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Category;
 use Illuminate\Http\Request;
+use Laravel\Ui\Presets\React;
 
 class PostController extends Controller
 {
@@ -11,9 +13,13 @@ class PostController extends Controller
         return view('post.index');
     }
 
-    public function create()
+    public function create(Request $request)
     {
-        return view('post.create');
+        // dd($request->parameters);
+        $categories = Category::get();
+        return view('post.create', [
+            'categories' => $categories
+        ]);
     }
 
     public function store(Request $request)

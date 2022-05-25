@@ -8,16 +8,16 @@
           @csrf
           <div class="flex items-center space-x-4 mb-4 p-6 border-b">
             <label for="title" class="shrink w-2/12">Recipe Title</label>
-            <input type="text" name="title" id="title" class="bg-gray-100 border-2 w-10/12 rounded py-1 px-2" placeholder="What do you call this recipe?" value="">
+            <input type="text" name="title" id="title" class="bg-gray-100 border-2 w-10/12 rounded py-1 px-2" placeholder="What do you call this recipe?" value="" required>
           </div>
           <div class="flex items-start space-x-4 mb-4 p-6 border-b">
             <label for="description" class="shrink w-2/12">Description</label>
-            <textarea name="description" id="description" cols="30" rows="5" class="bg-gray-100 border-2 w-10/12 rounded py-1 px-2"></textarea>
+            <textarea name="description" id="description" cols="30" rows="5" class="bg-gray-100 border-2 w-10/12 rounded py-1 px-2" required></textarea>
           </div>
           <div class="flex items-start space-x-4 mb-4 p-6 border-b">
             <label for="image" class="shrink w-2/12">Image</label>
             <div class="w-10/12 flex flex-col space-y-2">
-              <input type="file" accept="image/*" name="image" id="image" class="bg-gray-100 border-2 rounded py-1 px-2">
+              <input type="file" accept="image/*" name="image" id="image" class="bg-gray-100 border-2 rounded py-1 px-2" required>
               <div class="pl-2 text-slate-500">
                 <div>Maximum size:</div>
                 <div>Max file size:</div>
@@ -30,14 +30,13 @@
           </div>
           <div class="flex items-center space-x-4 mb-4 p-6 border-b">
             <label for="category" class="shrink w-2/12">Category</label>
-            <select name="category" id="category" class="bg-gray-100 border-2 w-10/12 rounded py-1 px-2">
+            <select name="category" id="category" class="bg-gray-100 border-2 w-10/12 rounded py-1 px-2" required>
               <option value="" disabled selected>Select category for your recipe</option>
-              <option value="all">All</option>
-              <option value="breakfast">Breakfast</option>
-              <option value="lunch">Lunch</option>
-              <option value="dinner">Dinner</option>
-              <option value="dessert">Dessert</option>
-              <option value="beverages">Beverages</option>
+              
+              @foreach ($categories as $category)
+                <option value="{{ $category->id }}">{{ $category->section }}</option>
+              @endforeach
+              
             </select>
           </div>
           <div class="flex items-start space-x-4 mb-4 p-6 border-b">
@@ -59,8 +58,8 @@
               <div id="ingredient-wrapper">
                 <table class="table-auto" id="dynamic_field"> 
                   <tr>  
-                    <td><input type="text" name="ingredients[0][name]" placeholder="Ingredient name" class="border-2 p-1 mr-2 mb-2 rounded-md" /></td>  
-                    <td><input type="text" name="ingredients[0][amount]" placeholder="Amount" class="border-2 p-1 mb-2 rounded-md" /></td>  
+                    <td><input type="text" name="ingredients[0][name]" placeholder="Ingredient name" class="border-2 p-1 mr-2 mb-2 rounded-md" required/></td>  
+                    <td><input type="text" name="ingredients[0][amount]" placeholder="Amount" class="border-2 p-1 mb-2 rounded-md" required/></td>  
                   </tr>  
                 </table>  
               </div>
