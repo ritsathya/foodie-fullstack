@@ -28,9 +28,9 @@
           </a>
         </li>
         <li>
-          <a href="#dashboard" class="p-2 text-base font-normal text-gray-900 hover:text-blue-500">
-            <i class="fas fa-user-circle"></i>
-            <span class="ml-2">Profile</span>
+          <a href="{{ route('dashboard.category') }}" class="p-2 text-base font-normal text-gray-900 hover:text-blue-500">
+            <i class="fas fa-boxes"></i>
+            <span class="ml-2">Category</span>
           </a>
         </li>
       </ul>

@@ -43,6 +43,11 @@
             </div>
             <div class="flex items-center space-x-4">
                 @auth
+
+                @can('access-dashboard')
+                    <a href="{{ route('dashboard') }}">Dashboard</a>
+                @endcan
+
                 <a href="#user"> {{ auth()->user()->name }}</a>
                 <div>
                     <a href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
