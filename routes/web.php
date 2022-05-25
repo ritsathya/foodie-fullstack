@@ -40,6 +40,9 @@ Auth::routes();
 // Route::get('/auth/forgot_password', [ForgotPasswordController::class, 'index'])->name('auth.forgot_password');
 
 Route::get('/post', [PostController::class, 'index'])->name('post');
+Route::get('/post/create', [PostController::class, 'create'])->name('post.create');
+Route::post('/post/create', [PostController::class, 'store']);
+
 
 Route::group(['middleware' => 'guest'],function(){
     Route::get('/sign-in/facebook', [LoginController::class, 'facebook']);
