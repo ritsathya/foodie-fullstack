@@ -9,7 +9,7 @@ use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\Dashboard\SliderController;
 use App\Http\Controllers\Auth\Dashboard\CategoryController;
 use App\Http\Controllers\Auth\Dashboard\DashboardController;
-use App\Http\Controllers\CategoryController;
+// use App\Http\Controllers\CategoryController;
 
 /*
 |--------------------------------------------------------------------------
@@ -44,14 +44,16 @@ Route::group(['middleware' => 'guest'],function(){
 
 Route::group(['middleware' => 'can:access-dashboard'], function() {
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
+    
     Route::get('/dashboard/slider', [SliderController::class, 'index'])->name('dashboard.slider');
     Route::get('/dashboard/slider/add', [SliderController::class, 'create'])->name('dashboard.slider.add');
     Route::post('/dashboard/slider/add', [SliderController::class, 'store']);
     Route::delete('/dashboard/slider/{slider}', [SliderController::class, 'destroy']);
+    
     Route::get('/dashboard/category', [CategoryController::class, 'index'])->name('dashboard.category');
     Route::get('/dashboard/category/add', [CategoryController::class, 'create'])->name('dashboard.category.add');
-
-    Route::post('/category/add', [CategoryController::class, 'store'])->name('add-category');
-    Route::put('/category/{id}', [CategoryController::class, 'update'])->name('update-category');
-    Route::delete('/category/{id}', [CategoryController::class, 'destroy'])->name('delete-category');
+    Route::post('/dashboard/category/add', [CategoryController::class, 'store']);
+    Route::get('/dashboard/category/edit/{category}', [CategoryController::class, 'edit'])->name('dashboard.category.edit');
+    Route::put('/dashboard/category/update/{category}', [CategoryController::class, 'update'])->name('dashboard.category.update');
+    Route::delete('/dashboard/category/remove/{category}', [CategoryController::class, 'destroy'])->name('dashboard.category.remove');
 });

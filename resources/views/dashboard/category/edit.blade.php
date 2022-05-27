@@ -17,8 +17,9 @@
         >Go back</a>
     </div>
     <div>
-      <form action="{{ route('dashboard.category.add') }}" method="POST" class="p-4">
+      <form action="{{ route('dashboard.category.update', $category->id) }}" method="POST" class="p-4">
         @csrf
+        @method('PUT')
         <div class="flex flex-col items-center justify-center mt-4">
           <div class="mb-3 w-6/12 xl:w-4/12">
             <label for="section" class="form-label inline-block mb-2 mr-2 text-gray-700"
@@ -47,7 +48,7 @@
               name="section"
               id="section"
               placeholder="Category name"
-              value="{{ old('section') }}"
+              value="{{ $category->section }}"
             />
 
             @error('section')
@@ -61,7 +62,7 @@
             data-mdb-ripple="true"
             data-mdb-ripple-color="light"
             class="inline-block px-6 py-2.5 bg-green-600 text-white font-medium text-xs leading-tight uppercase rounded shadow-md hover:bg-green-700 hover:shadow-lg focus:bg-green-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-green-800 active:shadow-lg transition duration-150 ease-in-out"
-          >Add category</button>
+          >Update category</button>
         </div>
       </form>
     </div>
