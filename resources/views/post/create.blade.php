@@ -17,7 +17,7 @@
           <div class="flex items-start space-x-4 mb-4 p-6 border-b">
             <label for="image" class="shrink w-2/12">Image</label>
             <div class="w-10/12 flex flex-col space-y-2">
-              <input type="file" accept="image/*" name="image" id="image" class="bg-gray-100 border-2 rounded py-1 px-2">
+              <input type="file" accept="image/*" name="image" id="image" class="bg-gray-100 border-2 rounded py-1 px-2" required>
               <div class="pl-2 text-slate-500">
                 <div>Maximum size:</div>
                 <div>Max file size:</div>
@@ -26,30 +26,30 @@
           </div>
           <div class="flex items-center space-x-4 mb-4 p-6 border-b">
             <label for="video" class="shrink w-2/12">Video URL</label>
-            <input type="url" name="video" id="video" class="bg-gray-100 border-2 w-10/12 rounded py-1 px-2" placeholder="For example: https://www.youtube.com/watch?v=2kl3Liy5jcQ" value="">
+            <input type="url" name="video_url" id="video_url" class="bg-gray-100 border-2 w-10/12 rounded py-1 px-2" placeholder="For example: https://www.youtube.com/watch?v=2kl3Liy5jcQ" value="">
           </div>
           <div class="flex items-start space-x-4 mb-4 p-6 border-b">
             <label for="category" class="shrink w-2/12">Category</label>
             <div class="w-10/12 grid grid-rows-4 grid-flow-col gap-4">
-              <div class="flex items-center mr-4">
-                <input checked id="category-1" name="categories[0]" type="checkbox" value="" class="w-4 h-4 text-green-600 bg-gray-100 rounded border-gray-300 focus:ring-green-500 focus:ring-2">
-                <label for="category-1" class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">Breakfast</label>
-              </div>
-              <div class="flex items-center mr-4">
-                <input checked id="category-2" name="categories[1]" type="checkbox" value="" class="w-4 h-4 text-green-600 bg-gray-100 rounded border-gray-300 focus:ring-green-500 focus:ring-2">
-                <label for="category-2" class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">Lunch</label>
-              </div>
+
+              @foreach ($categories as $category)
+                <div class="flex items-center mr-4">
+                  <input id="category-1" name="categories[{{ $i++ }}]" type="checkbox" value="{{ $category->id }}" class="w-4 h-4 text-green-600 bg-gray-100 rounded border-gray-300 focus:ring-green-500 focus:ring-2">
+                  <label for="category-1" class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300"> {{ $category->section }} </label>
+                </div>
+              @endforeach
+
             </div>
           </div>
           <div class="flex items-start space-x-4 mb-4 p-6 border-b">
             <p class="shrink w-2/12">Flavour</p>
             <div class="w-10/12 grid grid-rows-4 grid-flow-col gap-4">
               <div class="flex items-center mr-4">
-                <input checked id="flavour-1" name="flavours[0]" type="checkbox" value="" class="w-4 h-4 text-green-600 bg-gray-100 rounded border-gray-300 focus:ring-green-500 focus:ring-2">
+                <input checked id="flavour-1" name="flavours[0]" type="checkbox" value="sweet" class="w-4 h-4 text-green-600 bg-gray-100 rounded border-gray-300 focus:ring-green-500 focus:ring-2">
                 <label for="flavour-1" class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">Sweet</label>
               </div>
               <div class="flex items-center mr-4">
-                <input checked id="flavour-2" name="flavours[1]" type="checkbox" value="" class="w-4 h-4 text-green-600 bg-gray-100 rounded border-gray-300 focus:ring-green-500 focus:ring-2">
+                <input checked id="flavour-2" name="flavours[1]" type="checkbox" value="spicy" class="w-4 h-4 text-green-600 bg-gray-100 rounded border-gray-300 focus:ring-green-500 focus:ring-2">
                 <label for="flavour-2" class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">Spicy</label>
               </div>
             </div>
@@ -76,25 +76,25 @@
           </div>
           <div class="flex items-center space-x-4 mb-4 p-6 border-b">
             <label for="prep-time" class="shrink w-2/12">Preparation time</label>
-            <input type="number" min="1" name="prep-time" id="prep-time" class="bg-gray-100 border-2 rounded py-1 px-2" placeholder="in minutes (optional)" value="">
+            <input type="number" min="1" name="preparation_time" id="prep-time" class="bg-gray-100 border-2 rounded py-1 px-2" placeholder="in minutes (optional)" value="">
           </div>
           <div class="flex items-center space-x-4 mb-4 p-6 border-b">
             <label for="cook-time" class="shrink w-2/12">Cooking time</label>
-            <input type="number" min="1" name="cook-time" id="cook-time" class="bg-gray-100 border-2 rounded py-1 px-2" placeholder="in minutes (optional)" value="">
+            <input type="number" min="1" name="cooking_time" id="cook-time" class="bg-gray-100 border-2 rounded py-1 px-2" placeholder="in minutes (optional)" value="">
           </div>
           <div class="flex items-start space-x-4 mb-4 p-6 border-b">
             <p class="shrink w-2/12">Skill level</p>
             <div>
               <div class="flex items-center mb-4">
-                <input id="skill-level-1" type="radio" value="" name="skill-level" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
+                <input id="skill-level-1" type="radio" value="easy" name="skill-level" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600" checked>
                 <label for="skill-level-1" class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">Easy</label>
               </div>
               <div class="flex items-center mb-4">
-                  <input checked id="skill-level-2" type="radio" value="" name="skill-level" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
+                  <input id="skill-level-2" type="radio" value="medium" name="skill-level" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
                   <label for="skill-level-2" class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">Medium</label>
               </div>
               <div class="flex items-center">
-                <input checked id="skill-level-3" type="radio" value="" name="skill-level" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
+                <input id="skill-level-3" type="radio" value="hard" name="skill-level" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
                 <label for="skill-level-3" class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">Hard</label>
             </div>
             </div>
