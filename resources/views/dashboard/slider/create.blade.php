@@ -8,7 +8,7 @@
   </div>
   <div class="w-full mt-4 shadow-md">
     <div class="flex justify-between items-center p-4 bg-gray-100 border-b rounded-t-lg">
-      <h2>All slides</h2>
+      <h2>Add slide</h2>
       <a
         href="{{ route('dashboard.slider') }}"
         data-mdb-ripple="true"
