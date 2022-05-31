@@ -1,3 +1,3 @@
 <div>
-    <textarea id="myeditorinstance" name="directions"></textarea>
+    <textarea id="myeditorinstance" name="directions">{{ $value ?? '' }}</textarea>
 </div>

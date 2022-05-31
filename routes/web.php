@@ -31,11 +31,16 @@ Auth::routes();
 
 
 Route::get('/post', [PostController::class, 'index'])->name('post');
-Route::get('/post/create', [PostController::class, 'create'])->name('post.create');
-Route::post('/post/create', [PostController::class, 'store']);
-Route::put('/post/{id}', [PostController::class, 'update'])->name('post.update');
-Route::delete('/post/{id}', [PostController::class, 'destroy'])->name('post.destroy');
 
+
+Route::group(['middleware' => 'auth'], function() {
+    Route::get('/post/create', [PostController::class, 'create'])->name('post.create');
+    Route::post('/post/create', [PostController::class, 'store']);
+    Route::delete('/post/delete/{post}', [PostController::class, 'destroy'])->name('post.delete');
+    Route::get('/post/edit/{post}', [PostController::class, 'edit'])->name('post.edit');
+    Route::put('/post/edit/{post}', [PostController::class, 'update']);
+
+});
 
 Route::group(['middleware' => 'guest'],function(){
     Route::get('/sign-in/facebook', [LoginController::class, 'facebook']);

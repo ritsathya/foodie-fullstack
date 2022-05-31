@@ -1,5 +1,4 @@
 $(function () {
-    $("input[type=checkbox]").removeAttr("checked");
 
     var i = 0;
     $("#add").on("click", function () {
@@ -15,7 +14,6 @@ $(function () {
     });
 
     $(document).on("click", ".btn_remove", function () {
-        i--;
         var button_id = $(this).attr("id");
         $("#row" + button_id + "").remove();
     });

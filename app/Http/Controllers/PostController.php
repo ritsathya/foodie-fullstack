@@ -10,27 +10,38 @@ class PostController extends Controller
 {
     public function index()
     {
-        return view('post.index');
+        $posts = Post::get();
+        return view('post.index', [
+            'posts' => $posts,
+        ]);
     }
 
     public function create()
     {
         $categories = Category::get();
-        $i = 0;
         return view('post.create', [
-            'categories' => $categories, 
-            'i' => $i,
+            'categories' => $categories,
+        ]);
+    }
+
+    public function edit(Post $post)
+    {
+        $categories = Category::get();
+        $ingredients = (json_decode($post->ingredients));
+        return view('post.edit', [
+            'categories' => $categories,
+            'ingredients' => $ingredients,
+            'post' => $post
         ]);
     }
 
     public function store(Request $request)
     {
-        $fields=$request->validate([
-            'token'=>'required|string',
+        $this->validate($request, [
+            'title'=>'required|string',
             'description'=>'required|string',
-            'image_url'=>'required|image|mimes:jpeg,png,jpg,gif,svg|',
-            'video_url'=>'required|string',
-            'category_id'=>'required|array',
+            'image'=>'required|image',
+            'categories'=>'required|array',
             'flavours'=>'required|array',
             'ingredients'=>'required|array',
             'ingredients.*.name' => 'required|max:255',
@@ -38,28 +49,32 @@ class PostController extends Controller
             'directions'=>'required|string',
         ]);
 
-        $path=$request->file(key:'image')->store(path:'images',options:'s3');
-        $image_url = Storage::disk('s3')->url($path);
-        $categories = array_map('intval',$request->categories);
-        $ingredients = $request->ingredients;
+        if ($request->hasFile('image')) {
+            $file = $request->file('image');
+            $name = time() . '-' . $file->getClientOriginalName();
+            $imagePath = 'images/' . $name;
+            Storage::disk('s3')->put($imagePath, file_get_contents($file));
+        }
 
+        $ingredients = $request->ingredients;
         for ($i=0; $i < sizeof($request->ingredients); $i++) { 
             $ingredients[$i] = json_encode($ingredients[$i]);
         }
 
-        $post = Post::create([
-            'user_id' => auth()->user()->id,
+        $request->user()->posts()->create([
             'title' => $request->title,
             'description' => $request->description,
-            'image_url' => $image_url,
+            'image_url' => $imagePath,
             'video_url' => $request->video_url,
-            'category_id' => $categories,
-            'flavours' => $request->flavours,
+            'category_id' => array_values($request->categories),
+            'flavours' => array_values($request->flavours),
             'ingredients' => json_encode($ingredients),
             'directions' => $request->directions,
             'preparation_time' => $request->preparation_time,
             'cooking_time' => $request->cooking_time,
         ]);
+
+        return redirect()->route('post');
     }
         
     public function show($id)
@@ -73,53 +88,51 @@ class PostController extends Controller
         // dd($inarr);
     }
 
-    public function update(Request $request, $id)
+    public function update(Request $request, Post $post)
     {
-        // $fields=$request->validate([
-        //     'token'=>'required|string',
-        //     'description'=>'required|string',
-        //     'image_url'=>'required|image|mimes:jpeg,png,jpg,gif,svg|',
-        //     'video_url'=>'required|string',
-        //     'category_id'=>'required|array',
-        //     'flavours'=>'required|array',
-        //     'ingredients'=>'required|array',
-        //     'ingredients.*.name' => 'required|max:255',
-        //     'ingredients.*.amount' => 'required|max:255',
-        //     'directions'=>'required|string',
-        // ]);
+        $this->validate($request, [
+            'title'=>'required|string',
+            'description'=>'required|string',
+            'image'=>'required|image',
+            'categories'=>'required|array',
+            'flavours'=>'required|array',
+            'ingredients'=>'required|array',
+            'ingredients.*.name' => 'required|max:255',
+            'ingredients.*.amount' => 'required|max:255',
+            'directions'=>'required|string',
+        ]);
 
-        $post = Post::find($id);
+        if ($request->hasFile('image')) {
+            $file = $request->file('image');
+            $name = time() . '-' . $file->getClientOriginalName();
+            $imagePath = 'images/' . $name;
+            Storage::disk('s3')->put($imagePath, file_get_contents($file));
 
-        if(!auth()){
-            return redirect('login');
+            // Remove old image
+            if (Storage::disk('s3')->exists(public_path($post->image_url))) {
+                Storage::disk('s3')->delete($post->image_url);
+            }
         }
-        if(auth()->id != $post->user->id){
-            return ("u can't update, u're not the owner!!");
-        }
 
-        $path=$request->file(key:'image')->store(path:'images',options:'s3');
-        $image_url = Storage::disk('s3')->url($path);
-        $categories = array_map('intval',$request->categories);
         $ingredients = $request->ingredients;
-
         for ($i=0; $i < sizeof($request->ingredients); $i++) { 
             $ingredients[$i] = json_encode($ingredients[$i]);
         }
-        $post->update($request->all());
 
-        // $post->update([
-        //     'user_id' => auth()->user()->id,
-        //     'title' => $request->title,
-        //     'description' => $request->description,
-        //     'image_url' => $image_url,
-        //     'video_url' => $request->video_url,
-        //     'category_id' => $categories,
-        //     'flavours' => $request->flavours,
-        //     'ingredients' => json_encode($ingredients),
-        //     'directions' => $request->directions,
-        //     'preparation_time' => $request->preparation_time,
-        //     'cooking_time' => $request->cooking_time,
-        // ]);
+        $post->update([
+            'title' => $request->title,
+            'description' => $request->description,
+            'image_url' => $imagePath,
+            'video_url' => $request->video_url,
+            'category_id' => array_values($request->categories),
+            'flavours' => array_values($request->flavours),
+            'ingredients' => json_encode($ingredients),
+            'directions' => $request->directions,
+            'preparation_time' => $request->preparation_time,
+            'cooking_time' => $request->cooking_time,
+        ]);
+
+        return redirect()->route('post');
     }
 
     /**
@@ -128,19 +141,11 @@ class PostController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Post $post)
     {
-        $post = Post::find($id);
-
-        if(!auth()){
-            return redirect('login');
-        }
-
-        if(auth()->id != $post->user->id){
-            return ("u can't delete, u're not the owner!!");
-        }
-
-        Post::destroy($id);
+        Storage::disk('s3')->delete($post->image_url); 
+        $post->delete();
+        return back();
     }
     
 }
