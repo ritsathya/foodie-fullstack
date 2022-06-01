@@ -1,8 +1,9 @@
 <?php
 
 namespace App\Http\Controllers;
-use App\Models\Category;
+use DOMDocument;
 use App\Models\Post;
+use App\Models\Category;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 
@@ -79,15 +80,26 @@ class PostController extends Controller
         return redirect()->route('post');
     }
         
-    public function show($id)
+    public function show(Post $post)
     {
-        // $arr = Post::find(1)->ingredients;
-        // $inarr = json_decode($arr, true);
 
-        // for ($i=0; $i <sizeof($inarr) ; $i++) { 
-        //     $inarr[$i] = json_decode($inarr[$i], true);
-        // }
-        // dd($inarr);
+        $ingredients = (json_decode($post->ingredients));
+        $dom = new DOMDocument;
+        $dom->loadHTML($post->directions);
+        $nodes = ($dom->getElementsByTagName('p')->length != 0) ?
+                    $dom->getElementsByTagName('p') :
+                    $dom->getElementsByTagName('li');
+
+        foreach($nodes as $node)
+        {
+            $directions[] = $dom->saveHTML($node);
+        }
+
+        return view('post.show', [
+            'post' => $post,
+            'ingredients' => $ingredients,
+            'directions' => $directions
+        ]);
     }
 
     public function update(Request $request, Post $post)
