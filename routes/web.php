@@ -9,6 +9,8 @@ use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\Dashboard\SliderController;
 use App\Http\Controllers\Auth\Dashboard\CategoryController;
 use App\Http\Controllers\Auth\Dashboard\DashboardController;
+use App\Http\Controllers\CommentController;
+
 // use App\Http\Controllers\CategoryController;
 
 /*
@@ -40,7 +42,11 @@ Route::group(['middleware' => 'auth'], function() {
     Route::get('/post/edit/{post}', [PostController::class, 'edit'])->name('post.edit');
     Route::put('/post/edit/{post}', [PostController::class, 'update']);
 
+    //Comment Section
+    Route::post('/post/comment', [CommentController::class, 'store'])->name('comment.create');
+    Route::delete('/post/comment/{id}', [CommentController::class, 'destroy'])->name('comment.destroy');
 });
+
 
 Route::group(['middleware' => 'guest'],function(){
     Route::get('/sign-in/facebook', [LoginController::class, 'facebook']);

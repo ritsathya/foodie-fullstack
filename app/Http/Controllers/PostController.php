@@ -10,6 +10,8 @@ class PostController extends Controller
 {
     public function index()
     {
+        // $post = Post::find(2);
+        // dd($post->ingredients);
         $posts = Post::get();
         return view('post.index', [
             'posts' => $posts,
@@ -93,7 +95,6 @@ class PostController extends Controller
         $this->validate($request, [
             'title'=>'required|string',
             'description'=>'required|string',
-            'image'=>'required|image',
             'categories'=>'required|array',
             'flavours'=>'required|array',
             'ingredients'=>'required|array',
@@ -122,7 +123,6 @@ class PostController extends Controller
         $post->update([
             'title' => $request->title,
             'description' => $request->description,
-            'image_url' => $imagePath,
             'video_url' => $request->video_url,
             'category_id' => array_values($request->categories),
             'flavours' => array_values($request->flavours),
@@ -131,6 +131,12 @@ class PostController extends Controller
             'preparation_time' => $request->preparation_time,
             'cooking_time' => $request->cooking_time,
         ]);
+
+        if (isset($imagePath)) {
+            $post->update([
+                'image_url' => $imagePath,
+            ]);
+        }
 
         return redirect()->route('post');
     }
