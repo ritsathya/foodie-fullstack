@@ -31,7 +31,7 @@ Auth::routes();
 
 
 Route::get('/post', [PostController::class, 'index'])->name('post');
-
+Route::get('/post/detail/{post}', [PostController::class, 'show'])->name('post.detail');
 
 Route::group(['middleware' => 'auth'], function() {
     Route::get('/post/create', [PostController::class, 'create'])->name('post.create');
