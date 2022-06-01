@@ -3,8 +3,8 @@
 <div class="mt-8">
   <h3 class="underline space-x-2 text-center font-semibold text-xl mb-3"><i class="fas fa-flask"></i><span>Ingredients:</span></h3>
   <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
-    <table class="w-full text-sm text-center dark:text-gray-400">
-      <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+    <table class="w-full text-sm text-center">
+      <thead class="text-xs text-gray-700 uppercase bg-gray-50">
         <tr>
           {{-- <th scope="col" class="px-6 py-3"></th> --}}
           <th scope="col" class="px-6 py-3">Ingredient</th>
