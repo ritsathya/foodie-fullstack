@@ -7,37 +7,62 @@
 
             <div class="container px-6 py-8 mx-auto">
                 <div class="lg:flex lg:-mx-2">
-                    <div class="space-y-3 lg:w-1/5 lg:px-2 lg:space-y-4">
-                        <a href="#" class="block font-medium text-gray-500 dark:text-gray-300 hover:underline">Breakfast</a>
-                        <a href="#" class="block font-medium text-gray-500 dark:text-gray-300 hover:underline">Lunch</a>
-                        <a href="#" class="block font-medium text-blue-600 dark:text-blue-500 hover:underline">Dinner</a>
-                        <a href="#" class="block font-medium text-gray-500 dark:text-gray-300 hover:underline">Desserts</a>
-                        <a href="#" class="block font-medium text-gray-500 dark:text-gray-300 hover:underline">Snack</a>
-                    </div>
-
                     <div class="grid grid-cols-4 gap-4">
 
-                        {{-- @if ()
-                            <x-post>
-                        @endif --}}
+                        @if ($posts->count())
+                            @foreach ($posts as $post)
+                                <div class="max-w-sm bg-white rounded-lg border border-gray-200 shadow-md">
+                                    <a href="#" class="relative">
+                                        <div class="absolute top-0 right-0">
+                                            {{-- i think we can add if auth()->user->favourited or something fa-solid if not fa-regular --}}
+                                            <span><i class="far fa-heart px-4 py-4 text-2xl text-white"></i></span>
+                                        </div>
 
-                        {{-- test preview --}}
-                        <div class="max-w-sm bg-white rounded-lg border border-gray-200 shadow-md flex flex-col items-between">
-                            <a href="#">
-                                <img class="rounded-t-lg object-fill max-w-full row-2" src="/img/profile-pic.png" alt="" />
-                            </a>
-                            <div class="p-5 ">
-                                <a href="#" class="flex">
-                                    <img class="mb-3 mr-3 w-8 h-8 rounded-full shadow-lg" src="/img/profile-pic.png" alt=""/>
-                                    <p class="mb-2 capitalize text-lg font-bold tracking-tight text-gray-900">Ramson Gorday</p>
-                                </a>
-                                <p class="mb-3 font-normal text-gray-700">Here are the biggest description ever given to a post smh.</p>
-                            </div>
-                        </div>
+                                        {{-- change src to aws here --}}
+                                        <img class="rounded-t-lg object-fill max-w-full h-auto" src="/img/profile-pic.png" alt="" />
+                                    </a>
+                                    <div class="p-5 ">
+                                        <a href="#" class="flex">
+                                            {{-- change src to aws here too --}}
+                                            <img class="mb-3 mr-3 w-8 h-8 rounded-full shadow-lg" src="/img/profile-pic.png" alt=""/>
+                                            <p class="mb-2 capitalize text-lg font-bold tracking-tight text-gray-900">{{ $post->user->name }}</p>
+                                        </a>
+                                        <p class="mb-2 capitalize text-lg font-bold tracking-tight text-gray-800">{{ $post->title }}</p>
+                                        <p class="mb-3 h-24 overflow-hidden font-normal text-gray-700">{{ $post->description }}</p>
+                                    </div>
+                                    <div class="flex">
+                                        {{-- couldnt count, maybe you can figure it out? count for each then loop to add XD --}}
+                                        <div class="rounded-lg bg-[#def8e8] border border-solid border-[#13b67d] h-auto w-auto px-1 m-1">
+                                            Sweet
+                                        </div>
+                                        <div class="rounded-lg bg-[#def8e8] border border-solid border-[#13b67d] h-auto w-auto px-1 m-1">
+                                            Salty
+                                        </div>
+                                        <div class="rounded-lg bg-[#def8e8] border border-solid border-[#13b67d] h-auto w-auto px-1 m-1">
+                                            Spicy
+                                        </div>
+                                    </div>
+                                    <div class="flex p-5 justify-between">
+                                        <div class="flex">
+                                            <span><i class="far fa-clock mr-1"></i></span>
+                                            <span><p>{{ $post->duration }} mins</p></span>
+                                        </div>
 
+                                        <div>
+                                            @for ($i = (int)$post->review; $i > 0; $i--)
+                                                <span><i class="fas fa-star"></i></span>
+                                            @endfor
+                                            @for ($i = (5-$post->review); $i > 0; $i--)
+                                                <span><i class="far fa-star"></i></span>
+                                            @endfor
+                                        </div>
+                                    </div>
+                                </div>
+                            @endforeach
                         
-
-                            </x-category-post :post="$post">
+                        @else
+                            <p>There are no posts.</p> 
+                        @endif
 
                     </div>
                 </div>

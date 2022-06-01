@@ -1,8 +1,8 @@
 @extends('layouts.app')
 
 @section('content')
-  <div class="flex justify-center w-full">
-    <div class="bg-white p-8 mt-[100px] rounded-lg shadow-xl w-7/12 md:w-6/12 lg:w-5/12 xl:w-4/12 2xl:w-3/12">
+  <div class="flex justify-center w-full h-screen">
+    <div class="bg-white p-8 mt-[100px] rounded-lg shadow-xl h-fit w-7/12 md:w-6/12 lg:w-5/12 xl:w-4/12 2xl:w-3/12">
       <h2 class="font-medium leading-tight text-center text-4xl mt-0 mb-4">Register</h2>
       <form method="POST" action="{{ route('register') }}">
         <div class="relative">

@@ -14,58 +14,52 @@
   </div>
   @endif
 
-  <div class="w-full mt-4 shadow-md">
-    <div class="flex justify-between items-center p-4 bg-gray-100 border-b rounded-t-lg">
-      <h2>All categories</h2>
-      <a
         href="{{ route('dashboard.category.add') }}"
         data-mdb-ripple="true"
-        data-mdb-ripple-color="light"
         class="inline-block px-6 py-2.5 bg-blue-600 text-white font-medium text-xs leading-tight uppercase rounded shadow-md hover:bg-blue-700 hover:shadow-lg focus:bg-blue-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg transition duration-150 ease-in-out"
         >Add category</a>
     </div>
+    <div class="relative overflow-x-auto shadow-md sm:rounded-b-lg">
       <table class="table-auto bg-white w-full">
-        <thead class="border-b">
+        <thead class="border-b bg-gray-50">
           <tr>
             <th class="text-sm font-medium text-gray-900 px-6 py-4 text-center">#</th>
-            <th class="text-sm font-medium text-gray-900 px-6 py-4 text-center">Name</th>
+            <th class="text-sm font-medium text-gray-900 px-6 py-4 text-center">Section</th>
             <th class="text-sm font-medium text-gray-900 px-6 py-4 text-center">Created at</th>
             <th class="text-sm font-medium text-gray-900 px-6 py-4 text-center">Updated at</th>
             <th class="text-sm font-medium text-gray-900 px-6 py-4 text-center">Action</th>
           </tr>
         </thead>
         <tbody>        
-          <tr>
+          @foreach ($categories as $category)
+          <tr class="border-b hover:bg-gray-50 dark:hover:bg-gray-600">
             <th class="text-sm font-normal text-gray-900 px-6 py-4 text-center">
-              No
+              {{ $loop->index+1 }}
             </th>
             <td class="text-sm font-normal text-gray-900 px-6 py-4 text-center">
-              Name
+              {{ $category->section }}
             </td>
             <td class="text-sm font-normal text-gray-900 px-6 py-4 text-center">
-              date
+              {{ $category->created_at->diffForHumans() }}
             </td>
             <td class="text-sm font-normal text-gray-900 px-6 py-4 text-center">
-              date
+              {{ $category->updated_at->diffForHumans() }}
             </td>
-            <td>
+            <td class="py-2">
               <div class="flex justify-center space-x-4">
-                <form action="" method="POST">
-                  @csrf
-                  @method('PUT')
-                  <button type="submit">Edit</button>
-                </form>
-                <form action="" method="POST">
+                <a href="{{ route('dashboard.category.edit', $category->id) }}" class="focus:outline-none text-black bg-yellow-400 hover:bg-yellow-500 focus:ring-4 focus:ring-yellow-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:focus:ring-yellow-900">Edit</a>
+                <form action="{{ route('dashboard.category.remove', $category->id) }}" method="POST">
                   @csrf
                   @method('DELETE')
-                  <button type="submit">Delete</button>
+                  <button type="submit" class="focus:outline-none text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900">Delete</button>
                 </form>
             </div>
-
             </td>
           </tr>
+          @endforeach
         </tbody>
-  </div>
+      </table>
+    </div>
   <div class="mt-2">
     {{-- {{ $categories->links() }} --}}
   </div>
