@@ -17,11 +17,8 @@ return new class extends Migration
             $table->id();
             $table->foreignId('user_id')->constrained()->onDelete('cascade');
             $table->foreignId('post_id')->constrained()->onDelete('cascade');
-            $table->foreignId('comment_id')->nullable()->constrained()->onDelete('cascade');
-            // $table->unsignedBigInteger('replied_to_id')->nullable();
-            // $table->foreignId('replied_to_id')->references('id')->on('comments');
-            $table->string('body');
-            $table->boolean('isLike')->default(0);
+            $table->text('body');
+            $table->integer('rating_star');
             $table->enum('status', array('new', 'edited'))->default('new');
             $table->timestamps();
         });
@@ -38,6 +35,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('comments');
+        Schema::dropIfExists('rating_and_comments');
     }
 };
