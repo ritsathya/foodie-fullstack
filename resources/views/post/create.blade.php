@@ -17,7 +17,7 @@
           @enderror
           <div class="flex items-start space-x-4 mt-4 p-6 border-t">
             <label for="description" class="shrink w-2/12">Description</label>
-            <textarea name="description" id="description" cols="30" rows="5" class="bg-gray-100 border-2 w-10/12 rounded py-1 px-2 @error('description') border-red-500 @enderror"></textarea>
+            <textarea name="description" id="description" cols="30" rows="5" class="bg-gray-100 border-2 w-10/12 rounded py-1 px-2 @error('description') border-red-500 @enderror" value="{{ old('description') }}"></textarea>
           </div>
           @error('description')
             <div class="text-red-500 text-center px-6">
@@ -27,7 +27,7 @@
           <div class="flex items-start space-x-4 mt-4 p-6 border-t">
             <label for="image" class="shrink w-2/12">Image</label>
             <div class="w-10/12 flex flex-col space-y-2">
-              <input type="file" accept="image/*" name="image" id="image" class="bg-gray-100 border-2 rounded py-1 px-2 @error('image') border-red-500 @enderror">
+              <input type="file" accept="image/*" name="image" id="image" class="bg-gray-100 border-2 rounded py-1 px-2 @error('image') border-red-500 @enderror" required >
               <div class="pl-2 text-slate-500">
                 <div>Maximum size:</div>
                 <div>Max file size:</div>
@@ -41,7 +41,7 @@
           @enderror
           <div class="flex items-center space-x-4 mt-4 p-6 border-t">
             <label for="video" class="shrink w-2/12">Video URL</label>
-            <input type="url" name="video_url" id="video_url" class="bg-gray-100 border-2 w-10/12 rounded py-1 px-2" placeholder="For example: https://www.youtube.com/watch?v=2kl3Liy5jcQ" value="">
+            <input type="url" name="video_url" id="video_url" class="bg-gray-100 border-2 w-10/12 rounded py-1 px-2" placeholder="For example: https://www.youtube.com/watch?v=2kl3Liy5jcQ" value="{{ old('video_url') }}">
           </div>
           <div class="flex items-start space-x-4 mt-4 p-6 border-t">
             <label for="category" class="shrink w-2/12">Category</label>
@@ -87,18 +87,18 @@
             </div>
           </div>
           <div class="flex items-start space-x-4 mt-4 p-6 border-t">
-            <label for="directions" class="shrink w-2/12">Directions</label>
+            <label for="directions" class="shrink w-2/12" >Directions</label>
             <div class="w-10/12">
               <x-forms.tinymce-editor/>
             </div>
           </div>
           <div class="flex items-center space-x-4 mt-4 p-6 border-t">
             <label for="prep-time" class="shrink w-2/12">Preparation time</label>
-            <input type="number" min="1" name="preparation_time" id="prep-time" class="bg-gray-100 border-2 rounded py-1 px-2" placeholder="in minutes (optional)" value="">
+            <input type="number" min="1" name="preparation_time" id="prep-time" class="bg-gray-100 border-2 rounded py-1 px-2" placeholder="in minutes (optional)" value="{{ old('preparation_time') }}">
           </div>
           <div class="flex items-center space-x-4 mt-4 p-6 border-t">
             <label for="cook-time" class="shrink w-2/12">Cooking time</label>
-            <input type="number" min="1" name="cooking_time" id="cook-time" class="bg-gray-100 border-2 rounded py-1 px-2" placeholder="in minutes (optional)" value="">
+            <input type="number" min="1" name="cooking_time" id="cook-time" class="bg-gray-100 border-2 rounded py-1 px-2" placeholder="in minutes (optional)" value="{{ old('cooking_time') }}">
           </div>
           <div class="flex items-start space-x-4 mt-4 p-6 border-t">
             <p class="shrink w-2/12">Skill level</p>

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Post;
 use App\Models\RatingAndComment;
 use Illuminate\Http\Request;
 
@@ -23,26 +24,19 @@ class RatingAndCommentController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Request $request, $post_id)
     {
         $request->validate([
-            'post_id' => 'required|integer',
             'body' => 'required|string',
             'rating_star' => 'required|integer',
         ]);
         RatingAndComment::create([
-            // 'user_id' => auth()->user()->id,
-            // 'post_id' => $request->post->id,
-            // 'body' => $request->body,
-            // 'rating_star' => $request->rating_star,
-
-            'user_id' => $request->user_id,
-            'post_id' => $request->post_id,
+            'user_id' => auth()->user()->id,
+            'post_id' => $post_id,
             'body' => $request->body,
             'rating_star' => $request->rating_star,
         ]);
-
-        // return $request;
+        return redirect()->back();
     }
 
     /**

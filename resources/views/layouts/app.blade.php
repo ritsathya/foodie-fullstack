@@ -10,6 +10,7 @@
         {{-- <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap" rel="stylesheet"> --}}
         <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
         <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+        <link href="{{ asset('css/rating.css') }}" rel="stylesheet">
         <link rel="shortcut icon" href="{{ url('favicon.ico') }}" type="image/x-icon">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.0-2/css/fontawesome.min.css" />  
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.0-2/css/all.min.css" /> 
@@ -31,7 +32,9 @@
         <nav class="top-0 sticky z-40 flex justify-between items-center bg-green-100 px-8 py-6 bg-opacity-80 backdrop-filter backdrop-blur shadow-md">
             <div class="flex items-center space-x-4">
                 <a href="/" class="uppercase text-2xl font-bold">Foodie</a>
+                <a href="{{ route('category') }}">Category</a>
                 <a href="{{ route('post') }}">Post</a>
+                <a href="{{ route('list') }}">List</a>
             </div>
             <div>
                 <form action="#search">

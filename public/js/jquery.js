@@ -1,5 +1,4 @@
 $(function () {
-
     var i = 0;
     $("#add").on("click", function () {
         i++;
@@ -14,6 +13,7 @@ $(function () {
     });
 
     $(document).on("click", ".btn_remove", function () {
+        i--;
         var button_id = $(this).attr("id");
         $("#row" + button_id + "").remove();
     });

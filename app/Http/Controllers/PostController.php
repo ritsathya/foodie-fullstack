@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 use DOMDocument;
+
 use App\Models\Post;
 use App\Models\Category;
+use App\Models\RatingAndComment;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 
@@ -11,8 +13,6 @@ class PostController extends Controller
 {
     public function index()
     {
-        // $post = Post::find(2);
-        // dd($post->ingredients);
         $posts = Post::get();
         return view('post.index', [
             'posts' => $posts,
@@ -94,11 +94,15 @@ class PostController extends Controller
         {
             $directions[] = $dom->saveHTML($node);
         }
-
+        
+        $comments = RatingAndComment::where('post_id', $post->id)->get();
+        // $comments = RatingAndComment::with('user', 'post.relation')->get();
+        // dd($comments);
         return view('post.show', [
             'post' => $post,
             'ingredients' => $ingredients,
-            'directions' => $directions
+            'directions' => $directions,
+            'comments' => $comments,
         ]);
     }
 
