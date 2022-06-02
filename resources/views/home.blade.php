@@ -31,7 +31,7 @@
                 <div class="flex justify-between">
                     <div class="space-x-1">
                         <i class="far fa-clock"></i>
-                        <span>{{ $post->preparation_time + $post->cooking_time}} mins</span>
+                        <span>{{ $post->preparation_time + $post->cooking_time}} {{ Str::plural('min', $post->cooking_time+$post->preparation_time) }}</span>
                     </div>
                     <div class="text-yellow-400">
                         <i class="fas fa-star"></i>
