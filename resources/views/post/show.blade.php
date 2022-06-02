@@ -2,8 +2,8 @@
 
 @section('content')
     <div class="flex justify-center w-full">
-      <div class="bg-white border-2 w-6/12 rounded-lg py-4 px-8 mt-8">
-        <a href="/post/#{{ $post->id }}" class="block mb-4"><i class="fas fa-angle-left"></i> back</a>
+      <div class="bg-white border-2 w-6/12 rounded-lg py-4 px-8 mt-8 md:w-8/12 xl:w-6/12">
+        <a href="{{ url()->previous() }}" class="block mb-4"><i class="fas fa-angle-left"></i> back</a>
         <x-posts.post-header :post="$post" />
         <x-posts.brief-info :post="$post" :ingredients="$ingredients" />
         <x-posts.ingredient :ingredients="$ingredients"/>
@@ -30,7 +30,7 @@
             </div>
             </div>
             <textarea name="review" id="review" cols="30" rows="5" class="border-2 p-2 w-full rounded"></textarea>
-            <button type="submit" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">Submit Review</button>
+            <button type="submit" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 focus:outline-none">Submit Review</button>
           </form>
         </div>
         <div class="p-4 mt-4">
@@ -97,12 +97,12 @@
                 </div>
               </div>
               <div class="flex items-center mb-1">
-                <div class="text-yellow-400">
-                  <i class="fas fa-star"></i>
-                  <i class="fas fa-star"></i>
-                  <i class="fas fa-star"></i>
-                  <i class="fas fa-star"></i>
-                  <i class="fas fa-star"></i>
+                <div>
+                  <i class="fas fa-star text-yellow-400"></i>
+                  <i class="fas fa-star text-gray-500"></i>
+                  <i class="fas fa-star text-gray-500"></i>
+                  <i class="fas fa-star text-gray-500"></i>
+                  <i class="fas fa-star text-gray-500"></i>
                 </div>
                 <h3 class="ml-2 text-sm font-semibold text-gray-900">Thinking to buy another one!</h3>
               </div>
