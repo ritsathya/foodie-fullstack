@@ -32,8 +32,9 @@
         <nav class="top-0 sticky z-40 flex justify-between items-center bg-green-100 px-8 py-6 bg-opacity-80 backdrop-filter backdrop-blur shadow-md">
             <div class="flex items-center space-x-4">
                 <a href="/" class="uppercase text-2xl font-bold">Foodie</a>
-                <a href="#category">Category</a>
+                <a href="{{ route('category') }}">Category</a>
                 <a href="{{ route('post') }}">Post</a>
+                <a href="{{ route('list') }}">List</a>
             </div>
             <div>
                 <form action="#search">

@@ -1,15 +1,16 @@
 <?php
 
 namespace App\Http\Controllers\Auth\Dashboard;
+use App\Http\Controllers\Controller;
+use Illuminate\Http\Request;
 
 use App\Models\Category;
-use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
+
+
 
 class CategoryController extends Controller
 {
-    public function index()
-    {
+    public function index() {
         $categories = Category::get();
         return view('dashboard.category.index', [
             'categories' => $categories
