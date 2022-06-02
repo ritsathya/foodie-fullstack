@@ -5,16 +5,15 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Rating_And_Comment extends Model
+class RatingAndComment extends Model
 {
     use HasFactory;
 
     protected $fillable = [
         'user_id',
         'post_id',
-        'comment_id',
         'body',
-        'isLike',
+        'rating_star',
     ];
 
     public function users()

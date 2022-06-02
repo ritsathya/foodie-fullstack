@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\RatingAndComment;
+use App\Models\RepliedReview;
 use Illuminate\Http\Request;
 
-class RatingAndCommentController extends Controller
+class RepliedReviewController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -26,23 +26,19 @@ class RatingAndCommentController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'post_id' => 'required|integer',
+            'rating_and_comment_id' => 'required|integer',
             'body' => 'required|string',
-            'rating_star' => 'required|integer',
         ]);
-        RatingAndComment::create([
+
+        RepliedReview::create([
             // 'user_id' => auth()->user()->id,
-            // 'post_id' => $request->post->id,
+            // 'rating_and_comment_id' => $request->rating_and_comment->id,
             // 'body' => $request->body,
-            // 'rating_star' => $request->rating_star,
 
             'user_id' => $request->user_id,
-            'post_id' => $request->post_id,
+            'rating_and_comment_id' => $request->rating_and_comment_id,
             'body' => $request->body,
-            'rating_star' => $request->rating_star,
         ]);
-
-        // return $request;
     }
 
     /**
@@ -76,6 +72,6 @@ class RatingAndCommentController extends Controller
      */
     public function destroy($id)
     {
-        RatingAndComment::destroy($id);
+        RepliedReview::destroy($id);
     }
 }

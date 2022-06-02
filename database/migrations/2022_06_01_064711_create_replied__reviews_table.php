@@ -13,13 +13,11 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('rating_and_comments', function (Blueprint $table) {
+        Schema::create('replied_reviews', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id')->constrained()->onDelete('cascade');
-            $table->foreignId('post_id')->constrained()->onDelete('cascade');
+            $table->foreignId('rating_and_comment_id')->constrained()->onDelete('cascade');
             $table->text('body');
-            $table->integer('rating_star');
-            $table->enum('status', array('new', 'edited'))->default('new');
             $table->timestamps();
         });
     }
@@ -31,6 +29,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('rating_and_comments');
+        Schema::dropIfExists('replied_reviews');
     }
 };

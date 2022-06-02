@@ -9,7 +9,8 @@ use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\Dashboard\SliderController;
 use App\Http\Controllers\Auth\Dashboard\CategoryController;
 use App\Http\Controllers\Auth\Dashboard\DashboardController;
-use App\Http\Controllers\CommentController;
+use App\Http\Controllers\RatingAndCommentController;
+use App\Http\Controllers\RepliedReviewController;
 
 // use App\Http\Controllers\CategoryController;
 
@@ -43,10 +44,11 @@ Route::group(['middleware' => 'auth'], function() {
     Route::put('/post/edit/{post}', [PostController::class, 'update']);
 
     //Comment Section
-    Route::post('/post/comment', [RatingAndCommentController::class, 'store'])->name('comment.create');
-    Route::delete('/post/comment/{id}', [RatingAndCommentController::class, 'destroy'])->name('comment.destroy');
+    
 });
-
+Route::post('/post/comment', [RatingAndCommentController::class, 'store'])->name('comment.create');
+Route::delete('/post/comment/{id}', [RatingAndCommentController::class, 'destroy'])->name('comment.destroy');
+Route::post('/post/comment/{id}', [RepliedReviewController::class, 'store'])->name('replied.create');
 
 Route::group(['middleware' => 'guest'],function(){
     Route::get('/sign-in/facebook', [LoginController::class, 'facebook']);
