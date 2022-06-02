@@ -12,4 +12,13 @@ class Category extends Model
     protected $fillable = [
         'section'
     ];
+
+    public function post()
+    {
+        $this->belongsTo(Post::class);
+    }
+
+    public static function getNameById($id){
+        return Category::where('id', $id)->pluck('section')->first();
+    }
 }
