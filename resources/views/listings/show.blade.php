@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="p-6 h-full">
+<div class="p-6">
   <div class="flex justify-between items-center p-4 mb-4 bg-white text-lg rounded">
     <p>Recipe Results for {{ request('search') }}</p>
     <form action="/listing">

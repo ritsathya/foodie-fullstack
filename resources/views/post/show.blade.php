@@ -8,7 +8,6 @@
         <x-posts.brief-info :post="$post" :ingredients="$ingredients" />
         <x-posts.ingredient :ingredients="$ingredients"/>
         <x-posts.direction :directions="$directions"/>
-        {{-- {{ dd(auth()) }} --}}
         @foreach ($comments as $comment)
           @if (Auth::check())
             @if ($comment->user->id == auth()->user()->id)
@@ -70,8 +69,10 @@
             </form>
           </div>
         @endif
-
-        <x-comment :comments="$comments" />
+    
+        @foreach ($comments as $comment)
+          <x-comment :comment="$comment" />
+        @endforeach
       </div>
     </div>
 @endsection
