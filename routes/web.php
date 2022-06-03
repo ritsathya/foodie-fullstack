@@ -74,8 +74,10 @@ Route::group(['middleware' => 'auth'], function() {
     Route::put('/post/edit/{post}', [PostController::class, 'update']);
 
     //Comment Section
-    Route::post('/post/detail/{id}/comment', [RatingAndCommentController::class, 'store'])->name('comment.create');
-    Route::delete('/post/detail/{id}/comment', [RatingAndCommentController::class, 'destroy'])->name('comment.destroy');
+    Route::post('/post/detail/{post}/comment', [RatingAndCommentController::class, 'store'])->name('comment.create');
+    Route::put('/post/detail/{post}/comment', [RatingAndCommentController::class, 'update'])->name('comment.update');
+    Route::delete('/post/detail/{post}/comment', [RatingAndCommentController::class, 'destroy'])->name('comment.destroy');
+    // Route::get('/post/detail/{post}/comment', [RatingAndCommentController::class, 'destroy'])->name('comment.destroy');
 // Route::post('/post/detail/{id}/comment', [RepliedReviewController::class, 'store'])->name('replied.create');
 });
 

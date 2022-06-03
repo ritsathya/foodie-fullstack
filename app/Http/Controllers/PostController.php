@@ -94,9 +94,8 @@ class PostController extends Controller
             $directions[] = $dom->saveHTML($node);
         }
         
-        $comments = RatingAndComment::where('post_id', $post->id)->get();
-        // $comments = RatingAndComment::with('user', 'post.relation')->get();
-        // dd($comments);
+        $comments = RatingAndComment::where('post_id', $post->id)->orderBy('created_at', 'DESC')->get();
+
         return view('post.show', [
             'post' => $post,
             'ingredients' => $ingredients,

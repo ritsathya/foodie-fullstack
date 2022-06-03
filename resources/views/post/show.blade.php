@@ -3,7 +3,7 @@
 @section('content')
     <div class="flex justify-center w-full">
       <div class="bg-white border-2 w-6/12 rounded-lg py-4 px-8 mt-8 md:w-8/12 xl:w-6/12">
-        <a href="{{ url()->previous() }}" class="block mb-4"><i class="fas fa-angle-left"></i> back</a>
+        <a href="{{ URL::route('post') }}" class="block mb-4"><i class="fas fa-angle-left"></i> back</a>
         <x-posts.post-header :post="$post" />
         <x-posts.brief-info :post="$post" :ingredients="$ingredients" />
         <x-posts.ingredient :ingredients="$ingredients"/>
@@ -71,32 +71,7 @@
           </div>
         @endif
 
-        @foreach ($comments as $comment)
-        <div class="p-4 mt-4">
-          <div id="commentSection">
-            <div class="mb-4">
-              <div class="flex items-center mb-4 space-x-4">
-                <img class="w-10 h-10 rounded-full" src="https://cdn-icons-png.flaticon.com/512/147/147142.png" alt="">
-                <div class="space-y-1 font-medium">
-                    <p> {{ $comment->user->name }} <time datetime="" class="block text-sm text-gray-500">{{ ($comment->status == 'new') ? $comment->created_at : 'updated at ' . $comment->updated_at }}</time></p>
-                </div>
-              </div>
-              <div class="flex items-center mb-1">
-                <div class="text-yellow-400">
-                  @for ($i = 0; $i < 5; $i++)
-                      @if ($i < $comment->rating_star)
-                        <i class="fas fa-star text-yellow-400"></i>
-                      @else
-                      <i class="fas fa-star text-gray-500"></i>
-                      @endif
-                  @endfor
-                </div>
-                <h3 class="ml-2 text-sm font-semibold text-gray-900">{{ $comment->body }}</h3>
-              </div>
-            </div>
-          </div>
-        </div>
-        @endforeach
+        <x-comment :comments="$comments" />
       </div>
     </div>
 @endsection
