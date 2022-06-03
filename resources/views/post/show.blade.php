@@ -78,7 +78,7 @@
               <div class="flex items-center mb-4 space-x-4">
                 <img class="w-10 h-10 rounded-full" src="https://cdn-icons-png.flaticon.com/512/147/147142.png" alt="">
                 <div class="space-y-1 font-medium">
-                    <p> {{ $comment->user->name }} <time datetime="" class="block text-sm text-gray-500">{{ ($comment->status == 'new') ? $comment->created_at : $comment->updated_at }}</time></p>
+                    <p> {{ $comment->user->name }} <time datetime="" class="block text-sm text-gray-500">{{ ($comment->status == 'new') ? $comment->created_at : 'updated at ' . $comment->updated_at }}</time></p>
                 </div>
               </div>
               <div class="flex items-center mb-1">
