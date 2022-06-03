@@ -35,13 +35,30 @@ class Post extends Model
         'ingredient' => 'array',
       ];
 
-      public function user() 
-      {
-          return $this->belongsTo(User::class);
-      }
-  
-      public function ownedBy(User $user) 
-      {
-          return $user->id === $this->user_id;
-      }
+    public function user() 
+    {
+        return $this->belongsTo(User::class);
+    }
+
+    public function ownedBy(User $user) 
+    {
+        return $user->id === $this->user_id;
+    }
+
+    public function scopeFilter($query, array $filters)
+    {
+        if($filters['search'] ?? false)
+        {
+            $query->where('title', 'like', '%' . request('search') . '%')
+            ->orWhere('description', 'like', '%' . request('search') . '%')
+            ->orWhere('ingredients', 'like', '%' . request('search') . '%')
+            ->orWhere('description', 'like', '%' . request('search') . '%')
+            ->orWhere('flavours', 'like', '%' . request('search') . '%');
+        }
+        
+        if($filters['category'] ?? false)
+        {
+            $query->where('category_id', 'like', '%' . request('category') . '%');
+        }
+    }
 }
