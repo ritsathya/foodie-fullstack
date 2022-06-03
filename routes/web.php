@@ -18,6 +18,7 @@ use App\Http\Controllers\Auth\Dashboard\DashboardController;
 use App\Http\Controllers\RatingAndCommentController;
 use App\Http\Controllers\RepliedReviewController;
 use App\Http\Controllers\ListController;
+use App\Http\Controllers\ListingController;
 
 // use App\Http\Controllers\CategoryController;
 
@@ -45,12 +46,7 @@ Route::get('/', function () {
 
 Auth::routes();
 
-
-Route::get('/category', [ListController::class, 'index'])->name('category');
-Route::get('/list', [ListController::class, 'index'])->name('list');
-Route::post('/list/{category}', [ListController::class, 'list'])->name('list-by-category');
-
-
+Route::get('/listing', [ListingController::class, 'index'])->name('listing');
 Route::get('/post', [PostController::class, 'index'])->name('post');
 
 Route::get('/category', [ListController::class, 'index'])->name('category');

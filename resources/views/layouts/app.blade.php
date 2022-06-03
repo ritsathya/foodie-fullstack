@@ -7,7 +7,6 @@
         <title>Foodie</title>
 
         <!-- Fonts -->
-        {{-- <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap" rel="stylesheet"> --}}
         <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
         <link href="{{ asset('css/app.css') }}" rel="stylesheet">
         <link href="{{ asset('css/rating.css') }}" rel="stylesheet">
@@ -22,75 +21,15 @@
 
         <style>
             body {
-                /* font-family: 'Nunito', sans-serif; */
                 font-family: 'Poppins', sans-serif;
             }
         </style>
         <x-head.tinymce-config/>
     </head>
-    <body class="bg-gray-200">
-        <nav class="top-0 sticky z-40 flex justify-between items-center bg-green-100 px-8 py-6 bg-opacity-80 backdrop-filter backdrop-blur shadow-md">
-            <div class="flex items-center space-x-4">
-                <a href="/" class="uppercase text-2xl font-bold">Foodie</a>
-                <a href="{{ route('category') }}">Category</a>
-                <a href="{{ route('post') }}">Post</a>
-                <a href="{{ route('list') }}">List</a>
-            </div>
-            <div>
-                <form action="#search">
-                    <div class="relative">
-                        <label for="search" class="sr-only">search</label>
-                        <span class="pointer-events-none w-8 text-gray-500 absolute top-1/2 transform -translate-y-1/2 left-3"><i class="fas fa-search"></i></span>
-                        <input type="text" name="search" id="search" class="border-2 text-lg py-1 pl-8 rounded-lg shadow-inner" placeholder="Find food recipe">
-                    </div>
-                </form>
-            </div>
-            <div class="flex items-center space-x-4">
-                @auth
-
-                @can('access-dashboard')
-                    <a href="{{ route('dashboard') }}">Dashboard</a>
-                @endcan
-
-                <a href="#user"> {{ auth()->user()->name }}</a>
-                <div>
-                    <a href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
-                        {{ __('Logout') }}
-                    </a>
-
-                    <form id="logout-form" action="{{ route('logout') }}" method="POST">
-                        @csrf
-                    </form>
-                </div>
-                @endauth
-                
-                @guest
-                <a href="{{ route('login') }}">Login</a>
-                <a href="{{ route('register') }}">Register</a>
-                @endguest
-                
-            </div>
-        </nav>
-        
+    <body class="bg-gray-200 h-screen">
+        <x-navbar />
         @yield('content')
-
-        <footer class="bottom-0 p-4 mt-4 bg-white shadow md:flex md:items-center md:justify-between md:p-6 dark:bg-gray-800">
-            <span class="text-sm text-gray-500 sm:text-center dark:text-gray-400">© 2022 <a href="https://flowbite.com" class="hover:underline">Foodie™</a>. All Rights Reserved.</span>
-            <ul class="flex flex-wrap items-center mt-3 text-sm text-gray-500 dark:text-gray-400 sm:mt-0">
-                <li>
-                    <a href="#" class="mr-4 hover:underline md:mr-6 ">About</a>
-                </li>
-                <li>
-                    <a href="#" class="mr-4 hover:underline md:mr-6">Privacy Policy</a>
-                </li>
-                <li>
-                    <a href="#" class="mr-4 hover:underline md:mr-6">Licensing</a>
-                </li>
-                <li>
-                    <a href="#" class="hover:underline">Contact</a>
-                </li>
-            </ul>
-        </footer>
+        <x-footer />
         <script src="https://unpkg.com/flowbite@1.4.5/dist/flowbite.js"></script> 
         <script src="{{ asset('js/jquery.js') }}"></script>
     </body>

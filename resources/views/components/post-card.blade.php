@@ -1,0 +1,36 @@
+@props(['post'])
+
+<div class="max-w-sm bg-white rounded-lg border border-gray-200 shadow-md">
+  <a href="{{ route('post.detail', $post->id) }}">
+      <img class="h-48 w-full rounded-t-lg" src="{{ Storage::disk('s3')->temporaryUrl($post->image_url, '+2 minutes') }}" alt="" />
+  </a>
+  <div class="p-5">
+      <div class="flex space-x-2 items-center mb-4 md:text-sm md:space-x-1">
+          <img class="w-8 h-8 rounded-full" src="https://cdn-icons-png.flaticon.com/512/147/147142.png" alt="">
+          <h3>{{$post->user->name}}</h3>  
+          <div class="text-sm text-slate-400">posted {{ $post->created_at->diffForHumans() }}</div>
+      </div>
+      <a href="{{ route('post.detail', $post->id) }}">
+          <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900">{{ $post->title }}</h5>
+      </a>
+      <p class="h-28 border-b overflow-hidden text-left mb-3 font-normal text-gray-700">{{ $post->description }}</p>
+      <div class="mb-4">
+          @foreach ($post->category_id as $id)
+          <span class="px-2 py-1 bg-gradient-to-r from-cyan-500 to-green-500 text-sm text-white rounded-md">{{ App\Models\Category::getNameById($id) }}</span>
+          @endforeach
+      </div>
+      <div class="flex justify-between">
+          <div class="space-x-1">
+              <i class="far fa-clock"></i>
+              <span>{{ $post->preparation_time + $post->cooking_time}} {{ Str::plural('min', $post->cooking_time+$post->preparation_time) }}</span>
+          </div>
+          <div class="text-yellow-400">
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+          </div>
+      </div>
+  </div>
+</div>

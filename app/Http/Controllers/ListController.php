@@ -19,13 +19,8 @@ class ListController extends Controller
 
     public function list(Category $category)
     {
-<<<<<<< HEAD
         $posts = Post::whereJsonContains('category_id', strval($category->id))->get();
 
-=======
-        
-        $posts = Post::where('category_id', '=', $category->id)->get();
->>>>>>> b3af45537e2f8dcdbba52b1062d54693d15f66e1
         return view('category', [
             'posts' => $posts
         ]);
