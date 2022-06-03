@@ -15,9 +15,9 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        $posts = Post::get();
-        return view('category', [
-            'posts' => $posts
+        $categories = Category::get();
+        return view('dashboard.category.index', [
+            'categories' => $categories
         ]);
     }
 

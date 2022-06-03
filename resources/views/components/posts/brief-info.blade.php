@@ -8,9 +8,9 @@
   </div>
 </div>
 <div class="relative overflow-x-auto mt-3 shadow-md sm:rounded-lg">
-  <table class="w-full text-sm text-left text-gray-600 dark:text-gray-400">
+  <table class="w-full text-sm text-left text-gray-600">
     <tbody>
-      <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
+      <tr class="bg-white border-b">
         <td class="px-6 py-4 space-y-2 border-r">
           <div>Skill level: <span class="text-black">{{ucfirst($post->skill_level)}}</span></div>
           <div>No. of Ingredients: <span class="text-black">{{count($ingredients)}}</span></div>

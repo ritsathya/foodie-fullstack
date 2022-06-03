@@ -82,7 +82,6 @@ class PostController extends Controller
         
     public function show(Post $post)
     {
-
         $ingredients = (json_decode($post->ingredients));
         $dom = new DOMDocument;
         $dom->loadHTML($post->directions);

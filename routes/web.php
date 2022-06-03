@@ -1,6 +1,6 @@
 <?php
 
-use App\Http\Controllers\RegisterController;
+use App\Models\Post;
 use App\Models\Slider;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Facade;
 // use App\Http\Controllers\Auth\RegisterController;
 // use App\Http\Controllers\Auth\ForgotPasswordController;
 use App\Http\Controllers\PostController;
+// use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\Dashboard\SliderController;
 use App\Http\Controllers\Auth\Dashboard\CategoryController;
@@ -33,10 +34,21 @@ use App\Http\Controllers\ListController;
 
 Route::get('/', function () {
     $slides = Slider::get();
-    return view('home', ['slides' => $slides]);
+    $posts = Post::get();
+    
+    return view('home', [
+        'slides' => $slides,
+        'posts' => $posts
+
+    ]);
 });
 
 Auth::routes();
+
+
+Route::get('/category', [ListController::class, 'index'])->name('category');
+Route::get('/list', [ListController::class, 'index'])->name('list');
+Route::post('/list/{category}', [ListController::class, 'list'])->name('list-by-category');
 
 
 Route::get('/post', [PostController::class, 'index'])->name('post');
@@ -66,11 +78,11 @@ Route::group(['middleware' => 'auth'], function() {
     Route::put('/post/edit/{post}', [PostController::class, 'update']);
 
     //Comment Section
-    
-});
-Route::post('/post/detail/{id}/comment', [RatingAndCommentController::class, 'store'])->name('comment.create');
-Route::delete('/post/detail/{id}/comment', [RatingAndCommentController::class, 'destroy'])->name('comment.destroy');
+    Route::post('/post/detail/{id}/comment', [RatingAndCommentController::class, 'store'])->name('comment.create');
+    Route::delete('/post/detail/{id}/comment', [RatingAndCommentController::class, 'destroy'])->name('comment.destroy');
 // Route::post('/post/detail/{id}/comment', [RepliedReviewController::class, 'store'])->name('replied.create');
+});
+
 
 Route::group(['middleware' => 'guest'],function(){
     Route::get('/sign-in/facebook', [LoginController::class, 'facebook']);

@@ -30,12 +30,27 @@ class RatingAndCommentController extends Controller
             'body' => 'required|string',
             'rating_star' => 'required|integer',
         ]);
+
         RatingAndComment::create([
             'user_id' => auth()->user()->id,
             'post_id' => $post_id,
             'body' => $request->body,
             'rating_star' => $request->rating_star,
         ]);
+
+        $comments = RatingAndComment::where('post_id', $post_id)->get();
+        $stars = 0;
+
+        foreach ($comments as $key => $comment) {
+            $stars += $comment->rating_star;
+        }
+
+        $over_all_stars = $stars/sizeof($comments);
+
+        $post = Post::find($post_id);
+        $post->review = $over_all_stars;
+        $post->save();
+
         return redirect()->back();
     }
 
