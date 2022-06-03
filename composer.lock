@@ -1211,11 +1211,7 @@
                 "issues": "https://github.com/laravel/framework/issues",
                 "source": "https://github.com/laravel/framework"
             },
-<<<<<<< HEAD
-            "time": "2022-05-17T14:07:43+00:00"
-=======
             "time": "2022-05-25T18:18:07+00:00"
->>>>>>> 96b0a979eb3dc898cf73aeff722aee5c73081133
         },
         {
             "name": "laravel/sanctum",
@@ -5927,18 +5923,6 @@
         },
         {
             "name": "laravel/sail",
-<<<<<<< HEAD
-            "version": "v1.14.5",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/laravel/sail.git",
-                "reference": "1da083e30e6b0d646535c0afc2afeffdccb7181d"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/laravel/sail/zipball/1da083e30e6b0d646535c0afc2afeffdccb7181d",
-                "reference": "1da083e30e6b0d646535c0afc2afeffdccb7181d",
-=======
             "version": "v1.14.7",
             "source": {
                 "type": "git",
@@ -5949,7 +5933,6 @@
                 "type": "zip",
                 "url": "https://api.github.com/repos/laravel/sail/zipball/c049316f9bcb02598607307f18b514b66202b639",
                 "reference": "c049316f9bcb02598607307f18b514b66202b639",
->>>>>>> 96b0a979eb3dc898cf73aeff722aee5c73081133
                 "shasum": ""
             },
             "require": {
