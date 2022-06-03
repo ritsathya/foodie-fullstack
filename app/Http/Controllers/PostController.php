@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 use DOMDocument;
+
 use App\Models\Post;
 use App\Models\Category;
+use App\Models\RatingAndComment;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 
@@ -91,11 +93,15 @@ class PostController extends Controller
         {
             $directions[] = $dom->saveHTML($node);
         }
-
+        
+        $comments = RatingAndComment::where('post_id', $post->id)->get();
+        // $comments = RatingAndComment::with('user', 'post.relation')->get();
+        // dd($comments);
         return view('post.show', [
             'post' => $post,
             'ingredients' => $ingredients,
-            'directions' => $directions
+            'directions' => $directions,
+            'comments' => $comments,
         ]);
     }
 
@@ -104,7 +110,6 @@ class PostController extends Controller
         $this->validate($request, [
             'title'=>'required|string',
             'description'=>'required|string',
-            'image'=>'required|image',
             'categories'=>'required|array',
             'flavours'=>'required|array',
             'ingredients'=>'required|array',
@@ -133,7 +138,6 @@ class PostController extends Controller
         $post->update([
             'title' => $request->title,
             'description' => $request->description,
-            'image_url' => $imagePath,
             'video_url' => $request->video_url,
             'category_id' => array_values($request->categories),
             'flavours' => array_values($request->flavours),
@@ -142,6 +146,12 @@ class PostController extends Controller
             'preparation_time' => $request->preparation_time,
             'cooking_time' => $request->cooking_time,
         ]);
+
+        if (isset($imagePath)) {
+            $post->update([
+                'image_url' => $imagePath,
+            ]);
+        }
 
         return redirect()->route('post');
     }

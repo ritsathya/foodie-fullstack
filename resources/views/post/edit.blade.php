@@ -97,11 +97,11 @@
           </div>
           <div class="flex items-center space-x-4 mt-4 p-6 border-t">
             <label for="prep-time" class="shrink w-2/12">Preparation time</label>
-            <input type="number" min="1" name="preparation_time" id="prep-time" class="bg-gray-100 border-2 rounded py-1 px-2" placeholder="in minutes (optional)" value="">
+            <input type="number" min="1" name="preparation_time" id="prep-time" class="bg-gray-100 border-2 rounded py-1 px-2" placeholder="in minutes (optional)" value="{{ $post->preparation_time }}">
           </div>
           <div class="flex items-center space-x-4 mt-4 p-6 border-t">
             <label for="cook-time" class="shrink w-2/12">Cooking time</label>
-            <input type="number" min="1" name="cooking_time" id="cook-time" class="bg-gray-100 border-2 rounded py-1 px-2" placeholder="in minutes (optional)" value="">
+            <input type="number" min="1" name="cooking_time" id="cook-time" class="bg-gray-100 border-2 rounded py-1 px-2" placeholder="in minutes (optional)" value="{{ $post->cooking_time }}">
           </div>
           <div class="flex items-start space-x-4 mt-4 p-6 border-t">
             <p class="shrink w-2/12">Skill level</p>
