@@ -13,7 +13,7 @@ class PostController extends Controller
 {
     public function index()
     {
-        $posts = Post::get();
+        $posts = Post::latest()->paginate(5);
         return view('post.index', [
             'posts' => $posts,
         ]);
@@ -167,6 +167,11 @@ class PostController extends Controller
         Storage::disk('s3')->delete($post->image_url); 
         $post->delete();
         return back();
+    }
+
+    public function showReport(Post $post)
+    {
+        return view('post.report');
     }
     
 }
