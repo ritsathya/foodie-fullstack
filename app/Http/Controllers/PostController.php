@@ -168,5 +168,10 @@ class PostController extends Controller
         $post->delete();
         return back();
     }
+
+    public function showReport(Post $post)
+    {
+        return view('post.report');
+    }
     
 }

@@ -57,6 +57,8 @@ Route::group(['middleware' => 'auth'], function() {
     Route::get('/post/edit/{post}', [PostController::class, 'edit'])->name('post.edit');
     Route::put('/post/edit/{post}', [PostController::class, 'update']);
 
+    Route::get('/post/report/{post}', [PostController::class, 'showReport'])->name('post.report');
+
     //Comment Section
     Route::post('/post/detail/{id}/comment', [RatingAndCommentController::class, 'store'])->name('comment.create');
     Route::delete('/post/detail/{id}/comment', [RatingAndCommentController::class, 'destroy'])->name('comment.destroy');
