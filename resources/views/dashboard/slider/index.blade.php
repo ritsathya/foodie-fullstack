@@ -40,7 +40,7 @@
           @foreach ($slides as $slide)
             <tr>
               <th class="text-sm font-normal text-gray-900 px-6 py-4 text-center">
-                {{ $slide->id }}
+                {{ $loop->index+1 }}
               </th>
               <td class="w-40 p-2">
                 <img src="{{ asset('storage/slides/'.$slide->image) }}" class="w-40 h-24 rounded-lg">
@@ -49,17 +49,26 @@
                 {{ $slide->title }}
               </td>
               <td class="text-sm font-normal text-gray-900 px-6 py-4 text-center">
-                {{ $slide->status == 1 ? 'active' : 'inactive' }}
+                @if ($slide->status)
+                  <div class="text-green-500 uppercase font-semibold">active</div>
+                @else
+                  <div class="text-yellow-500 uppercase font-semibold">inactive</div>
+                @endif
               </td>
               <td class="text-sm font-normal text-gray-900 px-6 py-4 text-center">
                 {{ $slide->created_at->diffForHumans() }}
               </td>
               <td>
-                <form action="/dashboard/slider/{{ $slide->id }}" method="POST">
-                  @csrf
-                  @method('DELETE')
-                  <button type="submit">Delete</button>
-                </form>
+                <div class="flex space-x-4 items-center justify-center">
+                  <div>
+                    <a href="{{ route('dashboard.slider.edit', $slide->id) }}" class="p-2 bg-yellow-500 rounded space-x-2"><span>Edit</span><i class="fas fa-edit"></i></a>
+                  </div>
+                  <form action="/dashboard/slider/{{ $slide->id }}" method="POST">
+                    @csrf
+                    @method('DELETE')
+                    <button onclick="return confirm('Are you sure?')" type="submit" class="p-2 bg-red-500 rounded space-x-2"><span>Delete</span><i class="fas fa-trash-alt"></i></button>
+                  </form>
+                </div>
               </td>
             </tr>
           @endforeach

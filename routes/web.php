@@ -5,12 +5,7 @@ use App\Models\Slider;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Facade;
-
-// use App\Http\Controllers\Auth\LoginController;
-// use App\Http\Controllers\Auth\RegisterController;
-// use App\Http\Controllers\Auth\ForgotPasswordController;
 use App\Http\Controllers\PostController;
-// use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\Dashboard\SliderController;
 use App\Http\Controllers\Auth\Dashboard\CategoryController;
@@ -49,17 +44,6 @@ Auth::routes();
 Route::get('/listing', [ListingController::class, 'index'])->name('listing');
 Route::get('/post', [PostController::class, 'index'])->name('post');
 
-Route::get('/category', [ListController::class, 'index'])->name('category');
-
-Route::get('/list', [ListController::class, 'index'])->name('list');
-Route::post('/list/{category}', [ListController::class, 'list'])->name('list-by-category');
-
-
-
-// Route::get('/auth/register', [RegisterController::class, 'index'])->name('auth.register');
-// Route::get('/auth/login', [LoginController::class, 'index'])->name('auth.login');
-// Route::get('/auth/forgot_password', [ForgotPasswordController::class, 'index'])->name('auth.forgot_password');
-
 Route::get('/post', [PostController::class, 'index'])->name('post');
 Route::get('/post/create', [PostController::class, 'create'])->name('post.create');
 Route::post('/post/create', [PostController::class, 'store']);
@@ -73,11 +57,13 @@ Route::group(['middleware' => 'auth'], function() {
     Route::get('/post/edit/{post}', [PostController::class, 'edit'])->name('post.edit');
     Route::put('/post/edit/{post}', [PostController::class, 'update']);
 
+    Route::get('/post/report/{post}', [PostController::class, 'showReport'])->name('post.report');
+
     //Comment Section
     Route::post('/post/detail/{post}/comment', [RatingAndCommentController::class, 'store'])->name('comment.create');
     Route::put('/post/detail/{post}/comment', [RatingAndCommentController::class, 'update'])->name('comment.update');
     Route::delete('/post/detail/{post}/comment', [RatingAndCommentController::class, 'destroy'])->name('comment.destroy');
-    // Route::get('/post/detail/{post}/comment', [RatingAndCommentController::class, 'destroy'])->name('comment.destroy');
+    Route::post('/post/detail/{post}/{comment}/reply_comment', [RepliedReviewController::class, 'store'])->name('replied.create');
 // Route::post('/post/detail/{id}/comment', [RepliedReviewController::class, 'store'])->name('replied.create');
 });
 
@@ -93,6 +79,8 @@ Route::group(['middleware' => 'can:access-dashboard'], function() {
     Route::get('/dashboard/slider', [SliderController::class, 'index'])->name('dashboard.slider');
     Route::get('/dashboard/slider/add', [SliderController::class, 'create'])->name('dashboard.slider.add');
     Route::post('/dashboard/slider/add', [SliderController::class, 'store']);
+    Route::post('/dashboard/slider/update/{slide}', [SliderController::class, 'update'])->name('dashboard.slider.update');
+    Route::get('/dashboard/slider/edit/{slide}', [SliderController::class, 'edit'])->name('dashboard.slider.edit');
     Route::delete('/dashboard/slider/{slider}', [SliderController::class, 'destroy']);
 
     Route::get('/dashboard/category', [CategoryController::class, 'index'])->name('dashboard.category');

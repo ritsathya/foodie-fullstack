@@ -71,7 +71,8 @@
           </div>
         @endif
 
-        <x-comment :comments="$comments" />
+        <x-comment :comments="$comments" :replied_comments="$replied_comments" />
       </div>
     </div>
+  </div>
 @endsection

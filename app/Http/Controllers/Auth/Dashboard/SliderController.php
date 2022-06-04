@@ -22,6 +22,13 @@ class SliderController extends Controller
         return view('dashboard.slider.create');
     }
 
+    public function edit(Slider $slide)
+    {
+        return view('dashboard.slider.edit', [
+            'slide' => $slide
+        ]);
+    }
+
     public function store(Request $request)
     {
         $this->validate($request, [
@@ -42,6 +49,32 @@ class SliderController extends Controller
         $slide->save();
 
         return redirect()->route('dashboard.slider')->with('message', 'Slide has been added successfully!');
+    }
+
+    public function update(Request $request, Slider $slide)
+    {
+        // dd($request);
+        $this->validate($request, [
+            'title' => 'required|max:255',
+            'status' => 'required'
+        ]);
+
+        if($request->file('image')){
+            $file= $request->file('image');
+            $filename = time() . '-' . $file->getClientOriginalName();
+            $request->image->storeAs('slides', $filename, 'public');
+
+            if (File::exists(public_path('Images/'.$slide->image))) {
+                File::delete(public_path('Images/'.$slide->image));
+            }
+
+            $slide->image = $filename;
+        }
+
+        $slide->title = $request->title;
+        $slide->status = $request->status;
+        $slide->save();
+        return redirect()->route('dashboard.slider')->with('message', 'Slide has been updated successfully!');
     }
 
     public function destroy(Slider $slider)
