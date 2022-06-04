@@ -24,7 +24,7 @@ class RatingAndCommentController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request, $post_id)
+    public function store(Request $request, Post $post)
     {
         $request->validate([
             'body' => 'required|string',
@@ -33,12 +33,12 @@ class RatingAndCommentController extends Controller
 
         RatingAndComment::create([
             'user_id' => auth()->user()->id,
-            'post_id' => $post_id,
+            'post_id' => $post->id,
             'body' => $request->body,
             'rating_star' => $request->rating_star,
         ]);
 
-        $comments = RatingAndComment::where('post_id', $post_id)->get();
+        $comments = RatingAndComment::where('post_id', $post->id)->get();
         $stars = 0;
 
         foreach ($comments as $key => $comment) {
@@ -47,7 +47,7 @@ class RatingAndCommentController extends Controller
 
         $over_all_stars = $stars/sizeof($comments);
 
-        $post = Post::find($post_id);
+        $post = Post::find($post->id);
         $post->review = $over_all_stars;
         $post->save();
 
@@ -72,9 +72,36 @@ class RatingAndCommentController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, $comment)
     {
-        //
+        // dd($comment);
+
+        $request->validate([
+            'body' => 'required|string',
+            'rating_star' => 'required|integer',
+        ]);
+
+        $update_comment = RatingAndComment::find($comment);
+        $update_comment->update([
+            'body' => $request->body,
+            'rating_star' => $request->rating_star,
+            'status' => 'edited',
+        ]);
+
+        $comments = RatingAndComment::where('post_id', $update_comment->post_id)->get();
+        $stars = 0;
+
+        foreach ($comments as $key => $comment) {
+            $stars += $comment->rating_star;
+        }
+
+        $over_all_stars = $stars/sizeof($comments);
+
+        $post = Post::find($comment->post_id);
+        $post->review = $over_all_stars;
+        $post->save();
+
+        return redirect()->back();
     }
 
     /**
@@ -85,6 +112,33 @@ class RatingAndCommentController extends Controller
      */
     public function destroy($id)
     {
+        $post_id = RatingAndComment::find($id)->post_id;
+
         RatingAndComment::destroy($id);
+
+        $comments = RatingAndComment::where('post_id', $post_id)->get();
+
+        if(!empty($comment))
+        {
+            $stars = 0;
+
+            foreach ($comments as $key => $comment) {
+                $stars += $comment->rating_star;
+            }
+
+            $over_all_stars = $stars/sizeof($comments);
+
+            $post = Post::find($post_id);
+            $post->review = $over_all_stars;
+            $post->save();
+        }else{
+            $post = Post::find($post_id);
+            $post->review = 0.0;
+            $post->save();
+        }
+
+        
+
+        return redirect()->back();
     }
 }

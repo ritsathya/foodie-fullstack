@@ -12,11 +12,17 @@ class RepliedReview extends Model
     protected $fillable = [
         'user_id',
         'rating_and_comment_id',
+        'post_id',
         'body',
     ];
 
-    public function rating_and_comments()
+    public function rating_and_comment()
     {
         return $this->belongsTo(Rating_And_Comment::class);
+    }
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
     }
 }

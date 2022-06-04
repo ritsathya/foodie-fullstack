@@ -23,22 +23,25 @@ class RepliedReviewController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store($post, $comment, Request $request)
     {
+        // dd($request, $comment, $post);
         $request->validate([
-            'rating_and_comment_id' => 'required|integer',
             'body' => 'required|string',
         ]);
 
         RepliedReview::create([
-            // 'user_id' => auth()->user()->id,
-            // 'rating_and_comment_id' => $request->rating_and_comment->id,
-            // 'body' => $request->body,
-
-            'user_id' => $request->user_id,
-            'rating_and_comment_id' => $request->rating_and_comment_id,
+            'user_id' => auth()->user()->id,
+            'rating_and_comment_id' => $comment,
+            'post_id' => $post,
             'body' => $request->body,
+
+            // 'user_id' => $request->user_id,
+            // 'rating_and_comment_id' => $request->rating_and_comment_id,
+            // 'body' => $request->body,
         ]);
+
+        return redirect()->back();
     }
 
     /**

@@ -3,11 +3,12 @@
 @section('content')
     <div class="flex justify-center w-full">
       <div class="bg-white border-2 w-6/12 rounded-lg py-4 px-8 mt-8 md:w-8/12 xl:w-6/12">
-        <a href="{{ url()->previous() }}" class="block mb-4"><i class="fas fa-angle-left"></i> back</a>
+        <a href="{{ URL::route('post') }}" class="block mb-4"><i class="fas fa-angle-left"></i> back</a>
         <x-posts.post-header :post="$post" />
         <x-posts.brief-info :post="$post" :ingredients="$ingredients" />
         <x-posts.ingredient :ingredients="$ingredients"/>
         <x-posts.direction :directions="$directions"/>
+        {{-- {{ dd(auth()) }} --}}
         @foreach ($comments as $comment)
           @if (Auth::check())
             @if ($comment->user->id == auth()->user()->id)
@@ -69,10 +70,9 @@
             </form>
           </div>
         @endif
-    
-        @foreach ($comments as $comment)
-          <x-comment :comment="$comment" />
-        @endforeach
+
+        <x-comment :comments="$comments" :replied_comments="$replied_comments" />
       </div>
     </div>
+  </div>
 @endsection

@@ -6,6 +6,7 @@ use DOMDocument;
 use App\Models\Post;
 use App\Models\Category;
 use App\Models\RatingAndComment;
+use App\Models\RepliedReview;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 
@@ -94,14 +95,16 @@ class PostController extends Controller
             $directions[] = $dom->saveHTML($node);
         }
         
-        $comments = RatingAndComment::where('post_id', $post->id)->get();
-        // $comments = RatingAndComment::with('user', 'post.relation')->get();
-        // dd($comments);
+        $comments = RatingAndComment::where('post_id', $post->id)->orderBy('created_at', 'DESC')->get();
+        $replied_comments = RepliedReview::where('post_id', $post->id)->get();
+
+
         return view('post.show', [
             'post' => $post,
             'ingredients' => $ingredients,
             'directions' => $directions,
             'comments' => $comments,
+            'replied_comments' => $replied_comments,
         ]);
     }
 
