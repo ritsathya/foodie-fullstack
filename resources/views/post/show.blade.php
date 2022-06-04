@@ -71,7 +71,10 @@
           </div>
         @endif
 
-        <x-comment :comments="$comments" :replied_comments="$replied_comments" />
+      @foreach ($comments as $comment)
+        <x-comment :comment="$comment" :replied_comments="$replied_comments" />
+      @endforeach
+
       </div>
     </div>
   </div>

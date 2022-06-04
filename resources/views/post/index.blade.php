@@ -29,7 +29,7 @@
           <div class="flex space-x-4 mt-4">
             <div>
               <i class="far fa-comment-alt"></i>
-              17 Comments
+              {{ App\Models\RatingAndComment::where('post_id', $post->id)->count() }} {{ Str::plural('comment', $post->cooking_time+$post->preparation_time) }}
             </div>
           </div>
         </section>

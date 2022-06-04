@@ -65,6 +65,15 @@ Route::group(['middleware' => 'auth'], function() {
     Route::delete('/post/detail/{post}/comment', [RatingAndCommentController::class, 'destroy'])->name('comment.destroy');
     Route::post('/post/detail/{post}/{comment}/reply_comment', [RepliedReviewController::class, 'store'])->name('replied.create');
 // Route::post('/post/detail/{id}/comment', [RepliedReviewController::class, 'store'])->name('replied.create');
+
+    Route::get('/profile', function() {
+        return view('layouts.profile');
+    })->name('profile');
+
+    Route::get('/profile/setting', function() {
+        return view('auth.profile.setting');
+    })->name('profile.setting');
+
 });
 
 
