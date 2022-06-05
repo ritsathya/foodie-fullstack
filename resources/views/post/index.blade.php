@@ -24,7 +24,9 @@
             <a href="{{ route('post.detail', $post->id) }}" class="shrink-0 flex items-center space-x-2"><span>view detail</span><i class="fas fa-angle-right"></i></a>
           </div>
           <div class="w-full">
-            <img class="object-cover rounded" src="{{ Storage::disk('s3')->temporaryUrl($post->image_url, '+2 minutes') }}" alt="img-placeholder">
+            <a href="{{ route('post.detail', $post->id) }}">
+              <img class="object-cover rounded" src="{{ Storage::disk('s3')->temporaryUrl($post->image_url, '+2 minutes') }}" alt="img-placeholder">
+            </a>
           </div>
           <div class="flex space-x-4 mt-4">
             <div>
