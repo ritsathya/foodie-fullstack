@@ -1,7 +1,7 @@
-@extends('layouts.post')
+@extends('layouts.app')
 
 @section('content')
-<div class="p-6 grow">
+<div class="p-6">
   <div class="flex justify-between items-center p-4 mb-4 bg-white text-lg rounded">
     <p>Recipe Results for {{ request('search') }}</p>
     <form action="/listing">
@@ -18,9 +18,6 @@
     @foreach ($posts as $post)
         <x-post-card :post="$post" />
     @endforeach
-  </div>
-  <div class="mt-2">
-    {{ $posts->links() }}
   </div>
 </div>
 

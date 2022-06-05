@@ -15,7 +15,7 @@
     }
 </style>
 </head>
-<body class="bg-gray-200 flex flex-col justify-between h-screen">
+<body class="bg-gray-200">
   <x-navbar />
   @yield('content')
   <x-footer />
