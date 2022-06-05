@@ -16,14 +16,14 @@ return new class extends Migration
         Schema::create('posts', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id')->constrained()->onDelete('cascade');
-            $table->text('title')->nullable();
-            $table->text('description')->nullable();
-            $table->text('image_url')->nullable();
+            $table->text('title');
+            $table->text('description');
+            $table->text('image_url');
             $table->text('video_url')->nullable();
-            $table->json('category_id')->nullable();
-            $table->json('flavours')->nullable();
-            $table->json('ingredients')->nullable();
-            $table->text('directions')->nullable();
+            $table->json('category_id');
+            $table->json('flavours');
+            $table->json('ingredients');
+            $table->text('directions');
             $table->integer('preparation_time')->nullable();
             $table->integer('cooking_time')->nullable();
             $table->enum('skill_level',['easy','medium','hard'])->default('easy');

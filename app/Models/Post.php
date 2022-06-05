@@ -22,7 +22,6 @@ class Post extends Model
         'preparation_time',
         'cooking_time',
         'review',
-        'is_published'
     ];
 
     public function categories()
