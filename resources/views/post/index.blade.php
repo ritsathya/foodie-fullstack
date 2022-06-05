@@ -21,7 +21,7 @@
           </div>
           <div class="flex justify-between items-center space-x-8 mb-4">
             <p class="truncate"><span class="text-lg font-semibold">[{{ $post->title }}]</span> {{ $post->description }}</p>
-            <a href="{{ route('post.detail', $post->id) }}" class="shrink-0 flex items-center space-x-2"><span>view detail</span><i class="fas fa-angle-right"></i></a>
+            <a href="{{ route('post.detail', $post->id) }}" class="shrink-0 flex items-center space-x-2"><span>view Detail</span><i class="fas fa-angle-right"></i></a>
           </div>
           <div class="w-full">
             <a href="{{ route('post.detail', $post->id) }}">
