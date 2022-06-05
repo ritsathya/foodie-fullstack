@@ -24,14 +24,12 @@
             <a href="{{ route('post.detail', $post->id) }}" class="shrink-0 flex items-center space-x-2"><span>view detail</span><i class="fas fa-angle-right"></i></a>
           </div>
           <div class="w-full">
-            <a href="{{ route('post.detail', $post->id) }}">
-              <img class="object-cover rounded" src="{{ Storage::disk('s3')->temporaryUrl($post->image_url, '+2 minutes') }}" alt="img-placeholder">
-            </a>
+            <img class="object-cover rounded" src="{{ ($post->image_url) ? Storage::disk('s3')->temporaryUrl($post->image_url, '+2 minutes') : "#" }}" alt="img-placeholder">
           </div>
           <div class="flex space-x-4 mt-4">
             <div>
               <i class="far fa-comment-alt"></i>
-              {{ App\Models\RatingAndComment::where('post_id', $post->id)->count() }} {{ Str::plural('comment', $post->cooking_time+$post->preparation_time) }}
+              17 Comments
             </div>
           </div>
         </section>
