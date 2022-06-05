@@ -14,7 +14,7 @@ class PostController extends Controller
 {
     public function index()
     {
-        $posts = Post::where('is_published', 1)->orderBy('created_at', 'desc')->paginate(5);
+        $posts = Post::latest()->paginate(5);
         return view('post.index', [
             'posts' => $posts,
         ]);
@@ -41,21 +41,18 @@ class PostController extends Controller
 
     public function store(Request $request)
     {
-        // dd($request->input('action')== 'Post');
-        if ($request->input('action') == 'Post') {
-            $this->validate($request, [
-                'title'=>'required|string',
-                'description'=>'required|string',
-                'image'=>'required|image',
-                'categories'=>'required|array',
-                'flavours'=>'required|array',
-                'ingredients'=>'required|array',
-                'ingredients.*.name' => 'required|max:255',
-                'ingredients.*.amount' => 'required|max:255',
-                'directions'=>'required|string',
-            ]);
-        }
-        
+        $this->validate($request, [
+            'title'=>'required|string',
+            'description'=>'required|string',
+            'image'=>'required|image',
+            'categories'=>'required|array',
+            'flavours'=>'required|array',
+            'ingredients'=>'required|array',
+            'ingredients.*.name' => 'required|max:255',
+            'ingredients.*.amount' => 'required|max:255',
+            'directions'=>'required|string',
+        ]);
+
         if ($request->hasFile('image')) {
             $file = $request->file('image');
             $name = time() . '-' . $file->getClientOriginalName();
@@ -71,15 +68,14 @@ class PostController extends Controller
         $request->user()->posts()->create([
             'title' => $request->title,
             'description' => $request->description,
-            'image_url' => isset($imagePath) ? $imagePath : $request->image,
+            'image_url' => $imagePath,
             'video_url' => $request->video_url,
-            'category_id' => ($request->input('action') == 'Post') ? array_values($request->categories) : $request->category_id,
-            'flavours' => ($request->input('action') == 'Post') ? array_values($request->flavours) : $request->flavours,
+            'category_id' => array_values($request->categories),
+            'flavours' => array_values($request->flavours),
             'ingredients' => json_encode($ingredients),
             'directions' => $request->directions,
             'preparation_time' => $request->preparation_time,
             'cooking_time' => $request->cooking_time,
-            'is_published' => (($request->input('action') == 'Post') ? 1 : 0),
         ]);
 
         return redirect()->route('post');
@@ -88,22 +84,16 @@ class PostController extends Controller
     public function show(Post $post)
     {
         $ingredients = (json_decode($post->ingredients));
-
-        if ($post->directions) {
-            $dom = new DOMDocument;
-            $dom->loadHTML($post->directions);
-            $nodes = ($dom->getElementsByTagName('p')->length != 0) ?
+        $dom = new DOMDocument;
+        $dom->loadHTML($post->directions);
+        $nodes = ($dom->getElementsByTagName('p')->length != 0) ?
                     $dom->getElementsByTagName('p') :
                     $dom->getElementsByTagName('li');
 
-            foreach($nodes as $node)
-            {
-                $directions[] = $dom->saveHTML($node);
-            }
-        }else{
-            $directions = [];
+        foreach($nodes as $node)
+        {
+            $directions[] = $dom->saveHTML($node);
         }
-        
         
         $comments = RatingAndComment::where('post_id', $post->id)->orderBy('created_at', 'DESC')->get();
         $replied_comments = RepliedReview::where('post_id', $post->id)->get();
@@ -120,18 +110,16 @@ class PostController extends Controller
 
     public function update(Request $request, Post $post)
     {
-        if ($request->input('action') == 'Post') {
-            $this->validate($request, [
-                'title'=>'required|string',
-                'description'=>'required|string',
-                'categories'=>'required|array',
-                'flavours'=>'required|array',
-                'ingredients'=>'required|array',
-                'ingredients.*.name' => 'required|max:255',
-                'ingredients.*.amount' => 'required|max:255',
-                'directions'=>'required|string',
-            ]);
-        }
+        $this->validate($request, [
+            'title'=>'required|string',
+            'description'=>'required|string',
+            'categories'=>'required|array',
+            'flavours'=>'required|array',
+            'ingredients'=>'required|array',
+            'ingredients.*.name' => 'required|max:255',
+            'ingredients.*.amount' => 'required|max:255',
+            'directions'=>'required|string',
+        ]);
 
         if ($request->hasFile('image')) {
             $file = $request->file('image');
@@ -153,16 +141,20 @@ class PostController extends Controller
         $post->update([
             'title' => $request->title,
             'description' => $request->description,
-            'image_url' => isset($imagePath) ? $imagePath : $request->image,
             'video_url' => $request->video_url,
-            'category_id' => ($request->input('action') == 'Post') ? array_values($request->categories) : $request->category_id,
-            'flavours' => ($request->input('action') == 'Post') ? array_values($request->flavours) : $request->flavours,
+            'category_id' => array_values($request->categories),
+            'flavours' => array_values($request->flavours),
             'ingredients' => json_encode($ingredients),
             'directions' => $request->directions,
             'preparation_time' => $request->preparation_time,
             'cooking_time' => $request->cooking_time,
-            'is_published' => ($request->input('action') == 'Post') ? 1 : 0,
         ]);
+
+        if (isset($imagePath)) {
+            $post->update([
+                'image_url' => $imagePath,
+            ]);
+        }
 
         return redirect()->route('post');
     }

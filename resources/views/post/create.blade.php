@@ -27,7 +27,7 @@
           <div class="flex items-start space-x-4 mt-4 p-6 border-t">
             <label for="image" class="shrink w-2/12">Image</label>
             <div class="w-10/12 flex flex-col space-y-2">
-              <input type="file" accept="image/*" name="image" id="image" class="bg-gray-100 border-2 rounded py-1 px-2 @error('image') border-red-500 @enderror"  >
+              <input type="file" accept="image/*" name="image" id="image" class="bg-gray-100 border-2 rounded py-1 px-2 @error('image') border-red-500 @enderror" required >
               <div class="pl-2 text-slate-500">
                 <div>Maximum size:</div>
                 <div>Max file size:</div>
@@ -118,8 +118,8 @@
             </div>
           </div>
           <div>
-            <button type="submit" name="action" value="Save Draft" class="focus:outline-none text-black bg-yellow-400 hover:bg-yellow-500 focus:ring-4 focus:ring-yellow-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:focus:ring-yellow-900">Save Draft</button>
-            <button type="submit" name="action" value="Post" class="focus:outline-none text-black bg-green-400 hover:bg-green-500 focus:ring-4 focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:focus:ring-green-900">Submit recipe</button>
+            <button type="button" class="focus:outline-none text-black bg-yellow-400 hover:bg-yellow-500 focus:ring-4 focus:ring-yellow-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:focus:ring-yellow-900">Save Draft</button>
+            <button type="submit" class="focus:outline-none text-black bg-green-400 hover:bg-green-500 focus:ring-4 focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:focus:ring-green-900">Submit recipe</button>
           </div>
         </form>
       </div>
