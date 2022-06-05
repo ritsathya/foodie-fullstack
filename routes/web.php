@@ -30,7 +30,7 @@ use App\Http\Controllers\ListingController;
 
 Route::get('/', function () {
     $slides = Slider::get();
-    $posts = Post::get();
+    $posts = Post::inRandomOrder()->limit(5)->get();
     
     return view('home', [
         'slides' => $slides,
@@ -67,7 +67,7 @@ Route::group(['middleware' => 'auth'], function() {
 // Route::post('/post/detail/{id}/comment', [RepliedReviewController::class, 'store'])->name('replied.create');
 
     Route::get('/profile', function() {
-        return view('layouts.profile');
+        return view('auth.profile.index');
     })->name('profile');
 
     Route::get('/profile/setting', function() {

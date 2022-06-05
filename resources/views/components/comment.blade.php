@@ -54,7 +54,7 @@
             </div>
             
           </div>
-          <p class="ml-6 text-left text-sm p-4 w-full bg-gray-100 rounded">{{ $replied_comment->body }}</p>
+          <p class="ml-6 mr-1 text-left text-sm p-4 w-90 bg-gray-100 rounded">{{ $replied_comment->body }}</p>
         @endif
     @endforeach
 
