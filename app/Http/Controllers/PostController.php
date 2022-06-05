@@ -31,7 +31,7 @@ class PostController extends Controller
     public function draft()
     {
         $categories = Category::get();
-        $draft = Post::where('user_id', auth()->user()->id)->where('is_published', '=', 0)->first();
+        $draft = Post::where('user_id', auth()->user()->id)->where('is_published', 0)->first();
         $ingredients = (json_decode($draft->ingredients));
         // dd($draft);
         return view('post.draft', [

@@ -30,7 +30,7 @@ use App\Http\Controllers\ListingController;
 
 Route::get('/', function () {
     $slides = Slider::get();
-    $posts = Post::inRandomOrder()->limit(5)->get();
+    $posts = Post::inRandomOrder()->where('is_published', 1)->limit(5)->get();
     
     return view('home', [
         'slides' => $slides,
