@@ -28,6 +28,19 @@ class PostController extends Controller
         ]);
     }
 
+    public function draft()
+    {
+        $categories = Category::get();
+        $draft = Post::where('user_id', auth()->user()->id)->where('is_published', '=', 0)->first();
+        $ingredients = (json_decode($draft->ingredients));
+        // dd($draft);
+        return view('post.draft', [
+            'categories' => $categories,
+            'draft' => $draft,
+            'ingredients' => $ingredients
+        ]);
+    }
+
     public function edit(Post $post)
     {
         $categories = Category::get();
@@ -41,7 +54,6 @@ class PostController extends Controller
 
     public function store(Request $request)
     {
-        // dd($request->input('action')== 'Post');
         if ($request->input('action') == 'Post') {
             $this->validate($request, [
                 'title'=>'required|string',
@@ -68,6 +80,22 @@ class PostController extends Controller
             $ingredients[$i] = json_encode($ingredients[$i]);
         }
 
+        if ($request->input('action') == 'Update Draft') {
+            $request->user()->posts()->update([
+                'title' => $request->title,
+                'description' => $request->description,
+                'image_url' => isset($imagePath) ? $imagePath : $request->image,
+                'video_url' => $request->video_url,
+                'category_id' => array_values($request->categories),
+                'flavours' => $request->flavours == null ? null : array_values($request->flavours),
+                'ingredients' => json_encode($ingredients),
+                'directions' => $request->directions,
+                'preparation_time' => $request->preparation_time,
+                'cooking_time' => $request->cooking_time,
+                'is_published' => 0,
+            ]);
+            return redirect()->route('post');
+        }
         $request->user()->posts()->create([
             'title' => $request->title,
             'description' => $request->description,

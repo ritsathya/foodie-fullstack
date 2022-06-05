@@ -3,7 +3,11 @@
 @section('content')
     <div class="flex flex-col items-center w-full py-8 px-20">
       <div class="mb-8 w-6/12 md:w-8/12 xl:w-5/12">
-        <a href="{{ route('post.create') }}" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded shadow-md text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">Add Post</a>
+        @if (App\Models\Post::where('user_id', auth()->user()->id)->where('is_published', '=', 0)->count())
+          <a href="{{ route('post.draft') }}" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded shadow-md text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">Open Post Draft</a>
+        @else
+          <a href="{{ route('post.create') }}" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded shadow-md text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">Add Post</a>
+        @endif
       </div>
       <div class="mb-4 md:w-8/12 xl:w-5/12">
         {{ $posts->links() }}
