@@ -8,7 +8,6 @@
         <x-posts.brief-info :post="$post" :ingredients="$ingredients" />
         <x-posts.ingredient :ingredients="$ingredients"/>
         <x-posts.direction :directions="$directions"/>
-        {{-- {{ dd(auth()) }} --}}
         @foreach ($comments as $comment)
           @if (Auth::check())
             @if ($comment->user->id == auth()->user()->id)
@@ -38,7 +37,7 @@
                       <input type="radio" value="5" name="rating_star" id="rating5">
                       <label for="rating5" class="fas fa-star"></label>
                   </div>
-              </div>
+                </div>
               </div>
               <textarea name="body" id="review" cols="30" rows="5" class="border-2 p-2 w-full rounded" required></textarea>
               <button type="submit" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">Submit Review</button>
@@ -71,8 +70,10 @@
           </div>
         @endif
 
-        <x-comment :comments="$comments" :replied_comments="$replied_comments" />
+      @foreach ($comments as $comment)
+        <x-comment :comment="$comment" :replied_comments="$replied_comments" />
+      @endforeach
+
       </div>
     </div>
-  </div>
 @endsection
