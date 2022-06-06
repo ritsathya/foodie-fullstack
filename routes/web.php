@@ -30,7 +30,7 @@ use App\Http\Controllers\ListingController;
 
 Route::get('/', function () {
     $slides = Slider::get();
-    $posts = Post::inRandomOrder()->limit(5)->get();
+    $posts = Post::inRandomOrder()->where('is_published', 1)->limit(5)->get();
     
     return view('home', [
         'slides' => $slides,
@@ -52,6 +52,7 @@ Route::get('/post/detail/{post}', [PostController::class, 'show'])->name('post.d
 
 Route::group(['middleware' => 'auth'], function() {
     Route::get('/post/create', [PostController::class, 'create'])->name('post.create');
+    Route::get('/post/draft', [PostController::class, 'draft'])->name('post.draft');
     Route::post('/post/create', [PostController::class, 'store']);
     Route::delete('/post/delete/{post}', [PostController::class, 'destroy'])->name('post.delete');
     Route::get('/post/edit/{post}', [PostController::class, 'edit'])->name('post.edit');

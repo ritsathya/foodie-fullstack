@@ -49,7 +49,7 @@
             <div class="w-10/12 grid grid-rows-4 grid-flow-col gap-4">
               @foreach ($categories as $category)
                 <div class="flex items-center mr-4">
-                  <input id="category-{{ $loop->index }}" name="categories[{{ $loop->index }}]" type="checkbox" {{ in_array($category->id, $post->category_id) ? 'checked' : '' }} value="{{ $category->id }}" class="w-4 h-4 text-green-600 bg-gray-100 rounded border-gray-300 focus:ring-green-500 focus:ring-2">
+                  <input id="category-{{ $loop->index }}" name="categories[{{ $loop->index }}]" type="checkbox" {{ ($post->category_id && in_array($category->id, $post->category_id)) ? 'checked' : '' }} value="{{ $category->id }}" class="w-4 h-4 text-green-600 bg-gray-100 rounded border-gray-300 focus:ring-green-500 focus:ring-2">
                   <label for="category-{{ $loop->index }}" class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300"> {{ $category->section }} </label>
                 </div>
               @endforeach
@@ -64,11 +64,11 @@
             <p class="shrink w-2/12">Flavour</p>
             <div class="w-10/12 grid grid-rows-4 grid-flow-col gap-4">
               <div class="flex items-center mr-4">
-                <input id="flavour-1" name="flavours[0]" type="checkbox" {{ in_array("sweet", $post->flavours) ? 'checked' : '' }} value="sweet" class="w-4 h-4 text-green-600 bg-gray-100 rounded border-gray-300 focus:ring-green-500 focus:ring-2">
+                <input id="flavour-1" name="flavours[0]" type="checkbox" {{ (($post->flavours) && (in_array("sweet", $post->flavours)) ? 'checked' : '') }} value="sweet" class="w-4 h-4 text-green-600 bg-gray-100 rounded border-gray-300 focus:ring-green-500 focus:ring-2">
                 <label for="flavour-1" class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">Sweet</label>
               </div>
               <div class="flex items-center mr-4">
-                <input id="flavour-2" name="flavours[1]" type="checkbox" {{ in_array("spicy", $post->flavours) ? 'checked' : '' }} value="spicy" class="w-4 h-4 text-green-600 bg-gray-100 rounded border-gray-300 focus:ring-green-500 focus:ring-2">
+                <input id="flavour-2" name="flavours[1]" type="checkbox" {{ (($post->flavours) && in_array("spicy", $post->flavours)) ? 'checked' : '' }} value="spicy" class="w-4 h-4 text-green-600 bg-gray-100 rounded border-gray-300 focus:ring-green-500 focus:ring-2">
                 <label for="flavour-2" class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">Spicy</label>
               </div>
             </div>
