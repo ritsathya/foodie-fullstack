@@ -210,7 +210,9 @@ class PostController extends Controller
 
     public function showReport(Post $post)
     {
-        return view('post.report');
+        return view('post.report', [
+            'post' => $post
+        ]);
     }
     
 }
