@@ -1,6 +1,6 @@
 @props(['comment'])
 
-<div>
+<div class="ml-6">
   <button type="button" data-modal-toggle="reply-model-{{ $comment->id }}" class="bg-gray-200 px-2 py-1 rounded">Reply</button>
   <div id="reply-model-{{ $comment->id }}" tabindex="-1" aria-hidden="true" class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 w-full md:inset-0 h-modal md:h-full justify-center items-center">
     <div class="relative p-4 w-full max-w-md h-full md:h-auto">

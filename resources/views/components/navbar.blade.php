@@ -20,7 +20,7 @@
           <a href="{{ route('dashboard') }}">Dashboard</a>
       @endcan
 
-      <a href="#user"> {{ auth()->user()->name }}</a>
+      <a href="{{ route('profile') }}"> {{ auth()->user()->name }}</a>
       <div>
           <a href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
               {{ __('Logout') }}

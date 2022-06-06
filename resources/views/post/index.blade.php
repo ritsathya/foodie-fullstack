@@ -21,15 +21,17 @@
           </div>
           <div class="flex justify-between items-center space-x-8 mb-4">
             <p class="truncate"><span class="text-lg font-semibold">[{{ $post->title }}]</span> {{ $post->description }}</p>
-            <a href="{{ route('post.detail', $post->id) }}" class="shrink-0 flex items-center space-x-2"><span>view detail</span><i class="fas fa-angle-right"></i></a>
+            <a href="{{ route('post.detail', $post->id) }}" class="shrink-0 flex items-center space-x-2"><span>view Detail</span><i class="fas fa-angle-right"></i></a>
           </div>
           <div class="w-full">
-            <img class="object-cover rounded" src="{{ ($post->image_url) ? Storage::disk('s3')->temporaryUrl($post->image_url, '+2 minutes') : "#" }}" alt="img-placeholder">
+            <a href="{{ route('post.detail', $post->id) }}">
+              <img class="object-cover rounded" src="{{ ($post->image_url) ? Storage::disk('s3')->temporaryUrl($post->image_url, '+2 minutes') : "#" }}" alt="img-placeholder">
+            </a>
           </div>
           <div class="flex space-x-4 mt-4">
             <div>
               <i class="far fa-comment-alt"></i>
-              17 Comments
+              {{ App\Models\RatingAndComment::where('post_id', $post->id)->count() }} {{ Str::plural('comment', $post->cooking_time+$post->preparation_time) }}
             </div>
           </div>
         </section>

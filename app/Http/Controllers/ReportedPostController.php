@@ -2,19 +2,22 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\RepliedReview;
+use App\Models\ReportedPost;
+use App\Models\Post;
 use Illuminate\Http\Request;
 
-class RepliedReviewController extends Controller
+class ReportedPostController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Post $post)
     {
-        //
+        return view('post.report', [
+            'post' => $post
+        ]);
     }
 
     /**
@@ -23,20 +26,24 @@ class RepliedReviewController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store($post, $comment, Request $request)
+    public function store(Request $request, $post)
     {
         $request->validate([
-            'body' => 'required|string',
+            'body' => 'required|string'
         ]);
 
-        RepliedReview::create([
-            'user_id' => auth()->user()->id,
-            'rating_and_comment_id' => $comment,
-            'post_id' => $post,
-            'body' => $request->body,
-        ]);
-
-        return redirect()->back();
+        if(auth()->check()){
+            $reported_post = ReportedPost::where('user_id', '=', auth()->user()->id)->where('post_id', $post)->get();
+            if (!$reported_post) {
+                ReportedPost::create([
+                    'user_id' => auth()->user()->id,
+                    'post_id' => $post,
+                    'body' => $request->body,
+                ]);
+                return redirect()->back()->with('alert', 'Reported Successfully');
+            }
+        }
+        return redirect()->back()->with('alert', 'Reported failed, You have already reported this post');
     }
 
     /**
@@ -70,6 +77,6 @@ class RepliedReviewController extends Controller
      */
     public function destroy($id)
     {
-        RepliedReview::destroy($id);
+        //
     }
 }

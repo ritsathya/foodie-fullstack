@@ -14,6 +14,8 @@ use App\Http\Controllers\RatingAndCommentController;
 use App\Http\Controllers\RepliedReviewController;
 use App\Http\Controllers\ListController;
 use App\Http\Controllers\ListingController;
+use App\Http\Controllers\ReportedPostController;
+use App\Models\ReportedPost;
 
 // use App\Http\Controllers\CategoryController;
 
@@ -30,7 +32,7 @@ use App\Http\Controllers\ListingController;
 
 Route::get('/', function () {
     $slides = Slider::get();
-    $posts = Post::get();
+    $posts = Post::inRandomOrder()->limit(5)->get();
     
     return view('home', [
         'slides' => $slides,
@@ -57,7 +59,8 @@ Route::group(['middleware' => 'auth'], function() {
     Route::get('/post/edit/{post}', [PostController::class, 'edit'])->name('post.edit');
     Route::put('/post/edit/{post}', [PostController::class, 'update']);
 
-    Route::get('/post/report/{post}', [PostController::class, 'showReport'])->name('post.report');
+    Route::get('/post/report/{post}', [ReportedPostController::class, 'index'])->name('post.report');
+    Route::post('/post/report/{post}', [ReportedPostController::class, 'store'])->name('report.create');
 
     //Comment Section
     Route::post('/post/detail/{post}/comment', [RatingAndCommentController::class, 'store'])->name('comment.create');
@@ -65,6 +68,15 @@ Route::group(['middleware' => 'auth'], function() {
     Route::delete('/post/detail/{post}/comment', [RatingAndCommentController::class, 'destroy'])->name('comment.destroy');
     Route::post('/post/detail/{post}/{comment}/reply_comment', [RepliedReviewController::class, 'store'])->name('replied.create');
 // Route::post('/post/detail/{id}/comment', [RepliedReviewController::class, 'store'])->name('replied.create');
+
+    Route::get('/profile', function() {
+        return view('auth.profile.index');
+    })->name('profile');
+
+    Route::get('/profile/setting', function() {
+        return view('auth.profile.setting');
+    })->name('profile.setting');
+
 });
 
 

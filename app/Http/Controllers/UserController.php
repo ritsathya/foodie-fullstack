@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\RepliedReview;
+use App\Models\User;
 use Illuminate\Http\Request;
 
-class RepliedReviewController extends Controller
+class UserController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -23,20 +23,9 @@ class RepliedReviewController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store($post, $comment, Request $request)
+    public function store(Request $request)
     {
-        $request->validate([
-            'body' => 'required|string',
-        ]);
-
-        RepliedReview::create([
-            'user_id' => auth()->user()->id,
-            'rating_and_comment_id' => $comment,
-            'post_id' => $post,
-            'body' => $request->body,
-        ]);
-
-        return redirect()->back();
+        //
     }
 
     /**
@@ -59,7 +48,16 @@ class RepliedReviewController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $request->validate([
+            'name' => 'required|string',
+            'email' => 'required|email',
+        ]);
+
+        $user = User::find(auth()->user()->id);
+
+        if ($user->email == $request->email) {
+            
+        }
     }
 
     /**
@@ -70,6 +68,6 @@ class RepliedReviewController extends Controller
      */
     public function destroy($id)
     {
-        RepliedReview::destroy($id);
+        //
     }
 }
