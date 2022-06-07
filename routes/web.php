@@ -4,16 +4,14 @@ use App\Models\Post;
 use App\Models\Slider;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
-use Illuminate\Support\Facades\Facade;
 use App\Http\Controllers\PostController;
+use App\Http\Controllers\ListingController;
 use App\Http\Controllers\Auth\LoginController;
+use App\Http\Controllers\RepliedReviewController;
+use App\Http\Controllers\RatingAndCommentController;
 use App\Http\Controllers\Auth\Dashboard\SliderController;
 use App\Http\Controllers\Auth\Dashboard\CategoryController;
 use App\Http\Controllers\Auth\Dashboard\DashboardController;
-use App\Http\Controllers\RatingAndCommentController;
-use App\Http\Controllers\RepliedReviewController;
-use App\Http\Controllers\ListController;
-use App\Http\Controllers\ListingController;
 
 // use App\Http\Controllers\CategoryController;
 

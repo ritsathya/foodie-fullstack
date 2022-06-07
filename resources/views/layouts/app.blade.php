@@ -3,6 +3,7 @@
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="csrf-token" content="{{ csrf_token() }}">
 
         <title>Foodie</title>
 
@@ -31,6 +32,12 @@
         @yield('content')
         <x-footer />
         <script src="https://unpkg.com/flowbite@1.4.5/dist/flowbite.js"></script> 
+        @auth
+        <script type="text/javascript">
+            window.userId = {!! json_encode(auth()->user()->id) !!}
+        </script>
+        @endauth
+        <script src="{{ asset('js/app.js') }}"></script>
         <script src="{{ asset('js/jquery.js') }}"></script>
     </body>
 </html>

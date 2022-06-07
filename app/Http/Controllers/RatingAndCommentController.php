@@ -3,8 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\Post;
-use App\Models\RatingAndComment;
+use App\Models\User;
 use Illuminate\Http\Request;
+use App\Models\RatingAndComment;
+use App\Notifications\RealTimeNotification;
 
 class RatingAndCommentController extends Controller
 {
@@ -31,7 +33,7 @@ class RatingAndCommentController extends Controller
             'rating_star' => 'required|integer',
         ]);
 
-        RatingAndComment::create([
+        $newComment = RatingAndComment::create([
             'user_id' => auth()->user()->id,
             'post_id' => $post->id,
             'body' => $request->body,
@@ -50,6 +52,10 @@ class RatingAndCommentController extends Controller
         $post = Post::find($post->id);
         $post->review = $over_all_stars;
         $post->save();
+
+        // notify post owner about new comment
+        $owner = User::find($post->user_id);
+        $owner->notify(new RealTimeNotification('You recieved new comment on post: ' . $post->title));
 
         return redirect()->back();
     }
@@ -74,8 +80,6 @@ class RatingAndCommentController extends Controller
      */
     public function update(Request $request, $comment)
     {
-        // dd($comment);
-
         $request->validate([
             'body' => 'required|string',
             'rating_star' => 'required|integer',
