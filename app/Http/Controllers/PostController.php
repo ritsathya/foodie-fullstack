@@ -5,9 +5,9 @@ use DOMDocument;
 
 use App\Models\Post;
 use App\Models\Category;
-use App\Models\RatingAndComment;
-use App\Models\RepliedReview;
 use Illuminate\Http\Request;
+use App\Models\RepliedReview;
+use App\Models\RatingAndComment;
 use Illuminate\Support\Facades\Storage;
 
 class PostController extends Controller
@@ -33,7 +33,6 @@ class PostController extends Controller
         $categories = Category::get();
         $draft = Post::where('user_id', auth()->user()->id)->where('is_published', 0)->first();
         $ingredients = (json_decode($draft->ingredients));
-        // dd($draft);
         return view('post.draft', [
             'categories' => $categories,
             'draft' => $draft,

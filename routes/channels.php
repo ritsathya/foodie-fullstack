@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\RatingAndComment;
 use Illuminate\Support\Facades\Broadcast;
 
 /*
