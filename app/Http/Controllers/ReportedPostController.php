@@ -34,7 +34,7 @@ class ReportedPostController extends Controller
 
         if(auth()->check()){
             $reported_post = ReportedPost::where('user_id', '=', auth()->user()->id)->where('post_id', $post)->get();
-            if (!$reported_post) {
+            if ($reported_post->isEmpty()) {
                 ReportedPost::create([
                     'user_id' => auth()->user()->id,
                     'post_id' => $post,
