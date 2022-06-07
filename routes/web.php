@@ -10,11 +10,13 @@ use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\Dashboard\SliderController;
 use App\Http\Controllers\Auth\Dashboard\CategoryController;
 use App\Http\Controllers\Auth\Dashboard\DashboardController;
+use App\Http\Controllers\FavouritePostController;
 use App\Http\Controllers\RatingAndCommentController;
 use App\Http\Controllers\RepliedReviewController;
 use App\Http\Controllers\ListController;
 use App\Http\Controllers\ListingController;
 use App\Http\Controllers\ReportedPostController;
+use App\Http\Controllers\UserSettingController;
 use App\Models\ReportedPost;
 
 // use App\Http\Controllers\CategoryController;
@@ -73,9 +75,13 @@ Route::group(['middleware' => 'auth'], function() {
         return view('auth.profile.index');
     })->name('profile');
 
-    Route::get('/profile/setting', function() {
-        return view('auth.profile.setting');
-    })->name('profile.setting');
+    // Report Post
+    Route::get('/profile/setting', [UserSettingController::class, 'index'])->name('profile.setting');
+    Route::put('/profile/setting', [UserSettingController::class, 'update'])->name('profile.setting.update');
+
+    // Favourite Post
+    Route::post('/post/{id}/favourite', [FavouritePostController::class, 'store'])->name('add.favourite');
+    Route::delete('/post/{id}/favourite', [FavouritePostController::class, 'destroy'])->name('delete.favourite');
 
 });
 

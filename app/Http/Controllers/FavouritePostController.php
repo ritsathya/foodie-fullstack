@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\User;
+use App\Models\FavouritePost;
 use Illuminate\Http\Request;
 
-class UserController extends Controller
+class FavouritePostController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -23,9 +23,14 @@ class UserController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Request $request, $post_id)
     {
-        //
+        if (auth()->check()) {
+            FavouritePost::create([
+                'user_id' => auth()->user()->id,
+                'post_id' => $post_id,
+            ]);
+        }
     }
 
     /**
@@ -48,16 +53,7 @@ class UserController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $request->validate([
-            'name' => 'required|string',
-            'email' => 'required|email',
-        ]);
-
-        $user = User::find(auth()->user()->id);
-
-        if ($user->email == $request->email) {
-            
-        }
+        //
     }
 
     /**
@@ -68,6 +64,7 @@ class UserController extends Controller
      */
     public function destroy($id)
     {
-        //
+        FavouritePost::destroy($id);
+        return redirect()->back()->with('alert', 'deleted');
     }
 }
