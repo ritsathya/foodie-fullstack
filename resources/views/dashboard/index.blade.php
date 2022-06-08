@@ -13,14 +13,14 @@
         <div class="flex space-x-4 items-center">
           <i class="fas fa-exclamation-circle text-2xl"></i>
           <div>
-            <h5 class="font-semibold text-lg">{{ App\Models\Post::find($report->post_id)->title }} <span class="text-sm text-gray-600">reported by {{ App\Models\User::find($report->user_id)->name}}</span></h5>
+            <a href="{{ route('post.detail', $report->post_id) }}" target="_blank" class="font-semibold text-lg hover:text-blue-500">{{ App\Models\Post::find($report->post_id)->title }} <span class="text-sm text-gray-600">reported by {{ App\Models\User::find($report->user_id)->name}}</span></a>
             <p>{{ $report->body}}</p>
           </div>
         </div>
         <form action="{{ route('report.destroy', $report->id) }}" method="POST">
           @csrf
           @method('DELETE')
-          <button><i class="fas fa-minus"></i></button>
+          <button onclick="return confirm('Are you sure?')" class="bg-red-400 p-3 rounded-lg"><i class="fas fa-trash-alt"></i></button>
         </form>
       </li>
     @endforeach
