@@ -2197,8 +2197,7 @@ window.Echo = new laravel_echo__WEBPACK_IMPORTED_MODULE_0__["default"]({
   key: "c616f9884973ac4f2ccc",
   cluster: "ap1",
   forceTLS: true
-}); // // Enable pusher logging - don't include this in production
-// Pusher.logToConsole = true;
+});
 
 /***/ }),
 

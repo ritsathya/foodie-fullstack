@@ -43,7 +43,7 @@ class ReportedPostController extends Controller
                 return redirect()->route('post')->with('alert', 'Reported Successfully');
             }
         }
-        return redirect()->back()->with('alert', 'Reported failed, You have already reported this post');
+        return redirect()->route('post')->with('alert', 'Reported failed, You have already reported this post');
     }
 
     /**

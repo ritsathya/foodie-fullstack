@@ -2,6 +2,12 @@
 
 @section('content')
     <div class="flex flex-col items-center w-full py-8 px-20">
+      @if (Session::has('alert'))
+      <div class="p-4 mt-2 mb-8 text-sm text-yellow-700 bg-yellow-100 rounded-lg" role="alert">
+        <span class="font-medium">Report alert!</span> {{Session::get('alert')}}
+      </div>
+      @endif
+
       <div class="mb-8 w-6/12 md:w-8/12 xl:w-5/12">
         @auth    
           @if (App\Models\Post::where('user_id', auth()->user()->id)->where('is_published', '=', 0)->count())
