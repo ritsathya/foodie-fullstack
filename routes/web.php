@@ -15,6 +15,7 @@ use App\Http\Controllers\Auth\Dashboard\DashboardController;
 use App\Http\Controllers\FavouritePostController;
 use App\Http\Controllers\ReportedPostController;
 use App\Http\Controllers\UserSettingController;
+use App\Models\FavouritePost;
 use App\Models\ReportedPost;
 
 // use App\Http\Controllers\CategoryController;
@@ -85,6 +86,7 @@ Route::group(['middleware' => 'auth'], function() {
     Route::put('/profile/setting', [UserSettingController::class, 'update'])->name('profile.setting.update');
 
     // Favourite Post
+    Route::get('/profile/save_post', [FavouritePostController::class, 'index'])->name('profile.save_post');
     Route::post('/post/{id}/favourite', [FavouritePostController::class, 'store'])->name('add.favourite');
     Route::delete('/post/{id}/favourite', [FavouritePostController::class, 'destroy'])->name('delete.favourite');
 

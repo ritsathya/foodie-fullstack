@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\FavouritePost;
+use App\Models\Post;
 use Illuminate\Http\Request;
 
 class FavouritePostController extends Controller
@@ -14,7 +15,12 @@ class FavouritePostController extends Controller
      */
     public function index()
     {
-        //
+        $post_ids = FavouritePost::where('user_id', auth()->user()->id)->get(['post_id']);
+        $posts = Post::whereIn('id', $post_ids)->get();
+        // dd($posts);
+        return view('auth.profile.saved_post', [
+            'posts' => $posts
+        ]);
     }
 
     /**
