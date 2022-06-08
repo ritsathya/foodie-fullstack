@@ -96,13 +96,15 @@ class PostController extends Controller
         return redirect()->route('post');
     }
 
-    public function updateDraft(Request $request)
+    public function updateDraft(Request $request, Post $draft)
     {
         if ($request->hasFile('image')) {
             $file = $request->file('image');
             $name = time() . '-' . $file->getClientOriginalName();
             $imagePath = 'images/' . $name;
             Storage::disk('s3')->put($imagePath, file_get_contents($file));
+        } else {
+            $imagePath = $draft->image_url;
         }
 
         $ingredients = $request->ingredients;
@@ -113,7 +115,7 @@ class PostController extends Controller
         $request->user()->posts()->update([
             'title' => $request->title,
             'description' => $request->description,
-            'image_url' => isset($imagePath) ? $imagePath : $request->image,
+            'image_url' => $imagePath,
             'video_url' => $request->video_url,
             'category_id' => array_values($request->categories),
             'flavours' => $request->flavours == null ? null : array_values($request->flavours),
@@ -184,6 +186,8 @@ class PostController extends Controller
             if (Storage::disk('s3')->exists(public_path($post->image_url))) {
                 Storage::disk('s3')->delete($post->image_url);
             }
+        } else {
+            $imagePath = $post->image_url;
         }
 
         $ingredients = $request->ingredients;
@@ -194,7 +198,7 @@ class PostController extends Controller
         $post->update([
             'title' => $request->title,
             'description' => $request->description,
-            'image_url' => isset($imagePath) ? $imagePath : $request->image,
+            'image_url' => $imagePath,
             'video_url' => $request->video_url,
             'category_id' => ($request->input('action') == 'Post') ? array_values($request->categories) : $request->category_id,
             'flavours' => ($request->input('action') == 'Post') ? array_values($request->flavours) : $request->flavours,

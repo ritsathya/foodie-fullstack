@@ -4,7 +4,7 @@
     <div class="flex flex-col items-center w-full py-8 px-20">
       <div class="bg-white w-8/12 p-8 rounded md:w-11/12 lg:w-10/12 xl:w-8/12">
         <h2 class="text-lg font-bold text-center pb-4">Submit a Recipe</h2>
-        <form action="{{ route('post.draft') }}" method="POST" enctype="multipart/form-data">
+        <form action="{{ route('post.update.draft', $draft) }}" method="POST" enctype="multipart/form-data">
           @csrf
           <div class="flex items-center space-x-4 p-6 border-t">
             <label for="title" class="shrink w-2/12">Recipe Title</label>
@@ -26,6 +26,12 @@
           @enderror
           <div class="flex items-start space-x-4 mt-4 p-6 border-t">
             <label for="image" class="shrink w-2/12">Image</label>
+            @if ($draft->image_url != null)
+            <div class="w-10/12 flex flex-col space-y-2">
+              <img class="object-cover w-80 h-48 rounded" src="{{ Storage::disk('s3')->temporaryUrl($draft->image_url, '+2 minutes') }}" alt="img-placeholder">
+              <input type="file" accept="image/*" name="image" id="image" class="bg-gray-100 border-2 rounded py-1 px-2 @error('image') border-red-500 @enderror">
+            </div>
+            @else
             <div class="w-10/12 flex flex-col space-y-2">
               <input type="file" accept="image/*" name="image" id="image" class="bg-gray-100 border-2 rounded py-1 px-2 @error('image') border-red-500 @enderror"  >
               <div class="pl-2 text-slate-500">
@@ -33,6 +39,7 @@
                 <div>Max file size:</div>
               </div>
             </div>
+            @endif
           </div>
           @error('image')
             <div class="text-red-500 text-center px-6">

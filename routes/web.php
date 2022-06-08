@@ -52,7 +52,7 @@ Route::group(['middleware' => 'auth'], function() {
     Route::get('/post/create', [PostController::class, 'create'])->name('post.create');
     Route::post('/post/create', [PostController::class, 'store']);
     Route::get('/post/draft', [PostController::class, 'draft'])->name('post.draft');
-    Route::post('/post/draft', [PostController::class, 'updateDraft']);
+    Route::post('/post/draft/{draft}', [PostController::class, 'updateDraft'])->name('post.update.draft');
     Route::delete('/post/delete/{post}', [PostController::class, 'destroy'])->name('post.delete');
     Route::get('/post/edit/{post}', [PostController::class, 'edit'])->name('post.edit');
     Route::put('/post/edit/{post}', [PostController::class, 'update']);
