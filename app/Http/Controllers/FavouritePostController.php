@@ -17,7 +17,6 @@ class FavouritePostController extends Controller
     {
         $post_ids = FavouritePost::where('user_id', auth()->user()->id)->get(['post_id']);
         $posts = Post::whereIn('id', $post_ids)->get();
-        // dd($posts);
         return view('auth.profile.saved_post', [
             'posts' => $posts
         ]);

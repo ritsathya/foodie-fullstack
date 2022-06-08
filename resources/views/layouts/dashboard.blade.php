@@ -43,16 +43,11 @@
       </ul>
       <ul class="space-y-4 border-t w-full pt-4">
         <li>
-          <a href="#dashboard" class="p-2 text-base font-normal text-gray-900 hover:text-blue-500">
-            <i class="fas fa-cog"></i>
-            <span class="ml-2">Setting</span>
-          </a>
-        </li>
-        <li>
-          <a href="#dashboard" class="p-2 text-base font-normal text-gray-900 hover:text-blue-500">
+          <form action="{{ route('logout') }}" method="POST" class="p-2 text-base font-normal text-gray-900 hover:text-blue-500">
+            @csrf
             <i class="fas fa-sign-out-alt"></i>
-            <span class="ml-2">Logout</span>
-          </a>
+            <button class="ml-2">Logout</button>
+          </form>
         </li>
       </ul>
     </div>
