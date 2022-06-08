@@ -98,6 +98,20 @@ class PostController extends Controller
 
     public function updateDraft(Request $request, Post $draft)
     {
+        if ($request->input('action') == 'Post') {
+            $this->validate($request, [
+                'title'=>'required|string',
+                'description'=>'required|string',
+                'image'=>'required|image',
+                'categories'=>'required|array',
+                'flavours'=>'required|array',
+                'ingredients'=>'required|array',
+                'ingredients.*.name' => 'required|max:255',
+                'ingredients.*.amount' => 'required|max:255',
+                'directions'=>'required|string',
+            ]);
+        }
+        
         if ($request->hasFile('image')) {
             $file = $request->file('image');
             $name = time() . '-' . $file->getClientOriginalName();
@@ -117,7 +131,7 @@ class PostController extends Controller
             'description' => $request->description,
             'image_url' => $imagePath,
             'video_url' => $request->video_url,
-            'category_id' => array_values($request->categories),
+            'category_id' => $request->categories == null ? null : array_values($request->categories),
             'flavours' => $request->flavours == null ? null : array_values($request->flavours),
             'ingredients' => json_encode($ingredients),
             'directions' => $request->directions,
