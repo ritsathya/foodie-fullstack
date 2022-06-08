@@ -9,7 +9,7 @@
             <span class="text-sm text-slate-500">{{ ($comment->status == 'new') ? $comment->created_at->diffForHumans() : 'updated ' . $comment->updated_at->diffForHumans() }}</span>
         </div>
         @if (auth()->check() && $comment->user->id === auth()->user()->id)
-        <div>
+        <div class="flex space-x-2">
           <x-edit-modal :comment="$comment" />
           <form action="{{ route('comment.destroy', $comment) }}" method="POST" class="inline">
             @csrf
@@ -20,6 +20,7 @@
         @endif
       </div>
       <div class="flex flex-col items-start mb-1">
+        
         <div class="text-yellow-400 ml-1">
           @for ($i = 0; $i < 5; $i++)
               @if ($i < $comment->rating_star)

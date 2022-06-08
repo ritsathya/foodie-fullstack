@@ -16,16 +16,10 @@
                 <p class="text-center text-xl font-semibold">Edit the rating star</p>
                 <div class="rating-css">
                   <div class="star-icon">
-                    <input type="radio" value="1" name="rating_star" checked id="rating1">
-                    <label for="rating1" class="fas fa-star"></label>
-                    <input type="radio" value="2" name="rating_star" id="rating2">
-                    <label for="rating2" class="fas fa-star"></label>
-                    <input type="radio" value="3" name="rating_star" id="rating3">
-                    <label for="rating3" class="fas fa-star"></label>
-                    <input type="radio" value="4" name="rating_star" id="rating4">
-                    <label for="rating4" class="fas fa-star"></label>
-                    <input type="radio" value="5" name="rating_star" id="rating5">
-                    <label for="rating5" class="fas fa-star"></label>
+                    @for ($i = 1; $i <= 5; $i++)
+                    <input type="radio" value="{{$i+$comment->id}}" name="rating_star" {{ $i == 1? 'checked' : ''}} id="rating{{$i+$comment->id}}">
+                    <label for="rating{{$i+$comment->id}}" class="fas fa-star"></label>
+                    @endfor
                   </div>
                 </div>
               </div>
@@ -34,7 +28,6 @@
                 <button type="button" data-modal-toggle="edit-modal" class="focus:outline-none text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2">Cancel</button>
                 <button type="submit" data-modal-toggle="edit-modal" class="focus:outline-none text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2">Edit</button>
               </div>
-            </div>
           </form>
         </div>
       </div>
