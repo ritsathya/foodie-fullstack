@@ -6,7 +6,7 @@
     <p>Your Posts</p>
   </div>
   <div class="grid grid-cols-4 gap-4 mt-4 md:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5">
-    @foreach (App\Models\Post::where('user_id', auth()->user()->id)->get() as $post)
+    @foreach ($posts as $post)
         <x-post-card :post="$post" />
     @endforeach
   </div>

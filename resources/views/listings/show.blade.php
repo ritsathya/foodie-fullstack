@@ -14,7 +14,7 @@
       <button class="bg-green-300 px-2 py-1 rounded space-x-2 hover:bg-green-400"><span>filter</span><i class="fas fa-filter text-sm"></i></button>
     </form>
   </div>
-  <div class="grid grid-cols-4 gap-4 md:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5">
+  <div class="grid grid-cols-4 gap-4 md:grid-cols-3 md:p-4 xl:grid-cols-4 2xl:grid-cols-5">
     @foreach ($posts as $post)
         <x-post-card :post="$post" />
     @endforeach

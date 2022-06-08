@@ -5,9 +5,9 @@ use DOMDocument;
 
 use App\Models\Post;
 use App\Models\Category;
-use App\Models\RatingAndComment;
-use App\Models\RepliedReview;
 use Illuminate\Http\Request;
+use App\Models\RepliedReview;
+use App\Models\RatingAndComment;
 use Illuminate\Support\Facades\Storage;
 
 class PostController extends Controller
@@ -28,6 +28,18 @@ class PostController extends Controller
         ]);
     }
 
+    public function draft()
+    {
+        $categories = Category::get();
+        $draft = Post::where('user_id', auth()->user()->id)->where('is_published', 0)->first();
+        $ingredients = (json_decode($draft->ingredients));
+        return view('post.draft', [
+            'categories' => $categories,
+            'draft' => $draft,
+            'ingredients' => $ingredients
+        ]);
+    }
+
     public function edit(Post $post)
     {
         $categories = Category::get();
@@ -41,7 +53,6 @@ class PostController extends Controller
 
     public function store(Request $request)
     {
-        // dd($request->input('action')== 'Post');
         if ($request->input('action') == 'Post') {
             $this->validate($request, [
                 'title'=>'required|string',
@@ -82,6 +93,38 @@ class PostController extends Controller
             'is_published' => (($request->input('action') == 'Post') ? 1 : 0),
         ]);
 
+        return redirect()->route('post');
+    }
+
+    public function updateDraft(Request $request, Post $draft)
+    {
+        if ($request->hasFile('image')) {
+            $file = $request->file('image');
+            $name = time() . '-' . $file->getClientOriginalName();
+            $imagePath = 'images/' . $name;
+            Storage::disk('s3')->put($imagePath, file_get_contents($file));
+        } else {
+            $imagePath = $draft->image_url;
+        }
+
+        $ingredients = $request->ingredients;
+        for ($i=0; $i < sizeof($request->ingredients); $i++) { 
+            $ingredients[$i] = json_encode($ingredients[$i]);
+        }
+
+        $request->user()->posts()->update([
+            'title' => $request->title,
+            'description' => $request->description,
+            'image_url' => $imagePath,
+            'video_url' => $request->video_url,
+            'category_id' => array_values($request->categories),
+            'flavours' => $request->flavours == null ? null : array_values($request->flavours),
+            'ingredients' => json_encode($ingredients),
+            'directions' => $request->directions,
+            'preparation_time' => $request->preparation_time,
+            'cooking_time' => $request->cooking_time,
+            'is_published' => ($request->input('action') == 'Update Draft') ? 0 : 1,
+        ]);
         return redirect()->route('post');
     }
         
@@ -143,6 +186,8 @@ class PostController extends Controller
             if (Storage::disk('s3')->exists(public_path($post->image_url))) {
                 Storage::disk('s3')->delete($post->image_url);
             }
+        } else {
+            $imagePath = $post->image_url;
         }
 
         $ingredients = $request->ingredients;
@@ -153,7 +198,7 @@ class PostController extends Controller
         $post->update([
             'title' => $request->title,
             'description' => $request->description,
-            'image_url' => isset($imagePath) ? $imagePath : $request->image,
+            'image_url' => $imagePath,
             'video_url' => $request->video_url,
             'category_id' => ($request->input('action') == 'Post') ? array_values($request->categories) : $request->category_id,
             'flavours' => ($request->input('action') == 'Post') ? array_values($request->flavours) : $request->flavours,
@@ -180,4 +225,10 @@ class PostController extends Controller
         return back();
     }
 
+    public function showReport(Post $post)
+    {
+        return view('post.report', [
+            'post' => $post
+        ]);
+    }
 }

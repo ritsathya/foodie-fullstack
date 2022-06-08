@@ -4,17 +4,15 @@ use App\Models\Post;
 use App\Models\Slider;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
-use Illuminate\Support\Facades\Facade;
 use App\Http\Controllers\PostController;
+use App\Http\Controllers\ListingController;
 use App\Http\Controllers\Auth\LoginController;
+use App\Http\Controllers\RepliedReviewController;
+use App\Http\Controllers\RatingAndCommentController;
 use App\Http\Controllers\Auth\Dashboard\SliderController;
 use App\Http\Controllers\Auth\Dashboard\CategoryController;
 use App\Http\Controllers\Auth\Dashboard\DashboardController;
 use App\Http\Controllers\FavouritePostController;
-use App\Http\Controllers\RatingAndCommentController;
-use App\Http\Controllers\RepliedReviewController;
-use App\Http\Controllers\ListController;
-use App\Http\Controllers\ListingController;
 use App\Http\Controllers\ReportedPostController;
 use App\Http\Controllers\UserSettingController;
 use App\Models\ReportedPost;
@@ -34,7 +32,7 @@ use App\Models\ReportedPost;
 
 Route::get('/', function () {
     $slides = Slider::get();
-    $posts = Post::inRandomOrder()->limit(5)->get();
+    $posts = Post::inRandomOrder()->where('is_published', 1)->limit(5)->get();
     
     return view('home', [
         'slides' => $slides,
@@ -57,6 +55,8 @@ Route::get('/post/detail/{post}', [PostController::class, 'show'])->name('post.d
 Route::group(['middleware' => 'auth'], function() {
     Route::get('/post/create', [PostController::class, 'create'])->name('post.create');
     Route::post('/post/create', [PostController::class, 'store']);
+    Route::get('/post/draft', [PostController::class, 'draft'])->name('post.draft');
+    Route::post('/post/draft/{draft}', [PostController::class, 'updateDraft'])->name('post.update.draft');
     Route::delete('/post/delete/{post}', [PostController::class, 'destroy'])->name('post.delete');
     Route::get('/post/edit/{post}', [PostController::class, 'edit'])->name('post.edit');
     Route::put('/post/edit/{post}', [PostController::class, 'update']);
@@ -72,7 +72,12 @@ Route::group(['middleware' => 'auth'], function() {
 // Route::post('/post/detail/{id}/comment', [RepliedReviewController::class, 'store'])->name('replied.create');
 
     Route::get('/profile', function() {
-        return view('auth.profile.index');
+        $posts = App\Models\Post::where('user_id', auth()->user()->id)
+                                  ->where('is_published', 1)
+                                  ->get();
+        return view('auth.profile.index', [
+            'posts' => $posts
+        ]);
     })->name('profile');
 
     // Report Post
