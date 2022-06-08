@@ -2,7 +2,7 @@
 
 <div class="max-w-sm bg-white rounded-lg border border-gray-200 shadow-md">
   <a href="{{ route('post.detail', $post->id) }}">
-      <img class="h-48 w-full rounded-t-lg" src="{{ Storage::disk('s3')->temporaryUrl($post->image_url, '+2 minutes') }}" alt="" />
+      <img class="h-48 w-full rounded-t-lg" src="{{ ($post->image_url) ? Storage::disk('s3')->temporaryUrl($post->image_url, '+2 minutes') : "#" }}" alt="" />
   </a>
   <div class="p-5">
       <div class="flex space-x-2 items-center mb-4 md:text-sm md:space-x-1">
@@ -15,9 +15,11 @@
       </a>
       <p class="h-28 border-b overflow-hidden text-left mb-3 font-normal text-gray-700">{{ $post->description }}</p>
       <div class="mb-4">
-          @foreach ($post->category_id as $id)
-          <span class="px-2 py-1 bg-gradient-to-r from-cyan-500 to-green-500 text-sm text-white rounded-md">{{ App\Models\Category::getNameById($id) }}</span>
-          @endforeach
+          @if ($post->category_id)
+            @foreach ($post->category_id as $id)
+            <span class="px-2 py-1 bg-gradient-to-r from-cyan-500 to-green-500 text-sm text-white rounded-md">{{ App\Models\Category::getNameById($id) }}</span>
+            @endforeach
+          @endif
       </div>
       <div class="flex justify-between">
           <div class="space-x-1">

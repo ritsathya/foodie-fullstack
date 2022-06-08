@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\RepliedReview;
+use App\Models\FavouritePost;
 use Illuminate\Http\Request;
 
-class RepliedReviewController extends Controller
+class FavouritePostController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -23,20 +23,14 @@ class RepliedReviewController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store($post, $comment, Request $request)
+    public function store(Request $request, $post_id)
     {
-        $request->validate([
-            'body' => 'required|string',
-        ]);
-
-        RepliedReview::create([
-            'user_id' => auth()->user()->id,
-            'rating_and_comment_id' => $comment,
-            'post_id' => $post,
-            'body' => $request->body,
-        ]);
-
-        return redirect()->back();
+        if (auth()->check()) {
+            FavouritePost::create([
+                'user_id' => auth()->user()->id,
+                'post_id' => $post_id,
+            ]);
+        }
     }
 
     /**
@@ -70,6 +64,7 @@ class RepliedReviewController extends Controller
      */
     public function destroy($id)
     {
-        RepliedReview::destroy($id);
+        FavouritePost::destroy($id);
+        return redirect()->back()->with('alert', 'deleted');
     }
 }

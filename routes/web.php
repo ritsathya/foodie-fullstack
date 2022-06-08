@@ -12,6 +12,10 @@ use App\Http\Controllers\RatingAndCommentController;
 use App\Http\Controllers\Auth\Dashboard\SliderController;
 use App\Http\Controllers\Auth\Dashboard\CategoryController;
 use App\Http\Controllers\Auth\Dashboard\DashboardController;
+use App\Http\Controllers\FavouritePostController;
+use App\Http\Controllers\ReportedPostController;
+use App\Http\Controllers\UserSettingController;
+use App\Models\ReportedPost;
 
 // use App\Http\Controllers\CategoryController;
 
@@ -57,7 +61,8 @@ Route::group(['middleware' => 'auth'], function() {
     Route::get('/post/edit/{post}', [PostController::class, 'edit'])->name('post.edit');
     Route::put('/post/edit/{post}', [PostController::class, 'update']);
 
-    Route::get('/post/report/{post}', [PostController::class, 'showReport'])->name('post.report');
+    Route::get('/post/report/{post}', [ReportedPostController::class, 'index'])->name('post.report');
+    Route::post('/post/report/{post}', [ReportedPostController::class, 'store'])->name('report.create');
 
     //Comment Section
     Route::post('/post/detail/{post}/comment', [RatingAndCommentController::class, 'store'])->name('comment.create');
@@ -75,9 +80,13 @@ Route::group(['middleware' => 'auth'], function() {
         ]);
     })->name('profile');
 
-    Route::get('/profile/setting', function() {
-        return view('auth.profile.setting');
-    })->name('profile.setting');
+    // Report Post
+    Route::get('/profile/setting', [UserSettingController::class, 'index'])->name('profile.setting');
+    Route::put('/profile/setting', [UserSettingController::class, 'update'])->name('profile.setting.update');
+
+    // Favourite Post
+    Route::post('/post/{id}/favourite', [FavouritePostController::class, 'store'])->name('add.favourite');
+    Route::delete('/post/{id}/favourite', [FavouritePostController::class, 'destroy'])->name('delete.favourite');
 
 });
 
