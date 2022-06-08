@@ -79,22 +79,6 @@ class PostController extends Controller
             $ingredients[$i] = json_encode($ingredients[$i]);
         }
 
-        if ($request->input('action') == 'Update Draft') {
-            $request->user()->posts()->update([
-                'title' => $request->title,
-                'description' => $request->description,
-                'image_url' => isset($imagePath) ? $imagePath : $request->image,
-                'video_url' => $request->video_url,
-                'category_id' => array_values($request->categories),
-                'flavours' => $request->flavours == null ? null : array_values($request->flavours),
-                'ingredients' => json_encode($ingredients),
-                'directions' => $request->directions,
-                'preparation_time' => $request->preparation_time,
-                'cooking_time' => $request->cooking_time,
-                'is_published' => 0,
-            ]);
-            return redirect()->route('post');
-        }
         $request->user()->posts()->create([
             'title' => $request->title,
             'description' => $request->description,
@@ -109,6 +93,36 @@ class PostController extends Controller
             'is_published' => (($request->input('action') == 'Post') ? 1 : 0),
         ]);
 
+        return redirect()->route('post');
+    }
+
+    public function updateDraft(Request $request)
+    {
+        if ($request->hasFile('image')) {
+            $file = $request->file('image');
+            $name = time() . '-' . $file->getClientOriginalName();
+            $imagePath = 'images/' . $name;
+            Storage::disk('s3')->put($imagePath, file_get_contents($file));
+        }
+
+        $ingredients = $request->ingredients;
+        for ($i=0; $i < sizeof($request->ingredients); $i++) { 
+            $ingredients[$i] = json_encode($ingredients[$i]);
+        }
+
+        $request->user()->posts()->update([
+            'title' => $request->title,
+            'description' => $request->description,
+            'image_url' => isset($imagePath) ? $imagePath : $request->image,
+            'video_url' => $request->video_url,
+            'category_id' => array_values($request->categories),
+            'flavours' => $request->flavours == null ? null : array_values($request->flavours),
+            'ingredients' => json_encode($ingredients),
+            'directions' => $request->directions,
+            'preparation_time' => $request->preparation_time,
+            'cooking_time' => $request->cooking_time,
+            'is_published' => ($request->input('action') == 'Update Draft') ? 0 : 1,
+        ]);
         return redirect()->route('post');
     }
         

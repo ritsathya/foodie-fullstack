@@ -50,8 +50,9 @@ Route::get('/post/detail/{post}', [PostController::class, 'show'])->name('post.d
 
 Route::group(['middleware' => 'auth'], function() {
     Route::get('/post/create', [PostController::class, 'create'])->name('post.create');
-    Route::get('/post/draft', [PostController::class, 'draft'])->name('post.draft');
     Route::post('/post/create', [PostController::class, 'store']);
+    Route::get('/post/draft', [PostController::class, 'draft'])->name('post.draft');
+    Route::post('/post/draft', [PostController::class, 'updateDraft']);
     Route::delete('/post/delete/{post}', [PostController::class, 'destroy'])->name('post.delete');
     Route::get('/post/edit/{post}', [PostController::class, 'edit'])->name('post.edit');
     Route::put('/post/edit/{post}', [PostController::class, 'update']);
@@ -66,7 +67,12 @@ Route::group(['middleware' => 'auth'], function() {
 // Route::post('/post/detail/{id}/comment', [RepliedReviewController::class, 'store'])->name('replied.create');
 
     Route::get('/profile', function() {
-        return view('auth.profile.index');
+        $posts = App\Models\Post::where('user_id', auth()->user()->id)
+                                  ->where('is_published', 1)
+                                  ->get();
+        return view('auth.profile.index', [
+            'posts' => $posts
+        ]);
     })->name('profile');
 
     Route::get('/profile/setting', function() {
