@@ -47,7 +47,7 @@
               @foreach ($categories as $category)
                 <div class="flex items-center mr-4">
                   <input id="category-{{ $loop->index }}" name="categories[{{ $loop->index }}]" type="checkbox" {{ ($post->category_id && in_array($category->id, $post->category_id)) ? 'checked' : '' }} value="{{ $category->id }}" class="w-4 h-4 text-green-600 bg-gray-100 rounded border-gray-300 focus:ring-green-500 focus:ring-2">
-                  <label for="category-{{ $loop->index }}" class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300"> {{ $category->section }} </label>
+                  <label for="category-{{ $loop->index }}" class="ml-2 text-sm font-medium text-gray-900"> {{ $category->section }} </label>
                 </div>
               @endforeach
             </div>
@@ -62,11 +62,23 @@
             <div class="w-10/12 grid grid-rows-4 grid-flow-col gap-4">
               <div class="flex items-center mr-4">
                 <input id="flavour-1" name="flavours[0]" type="checkbox" {{ (($post->flavours) && (in_array("sweet", $post->flavours)) ? 'checked' : '') }} value="sweet" class="w-4 h-4 text-green-600 bg-gray-100 rounded border-gray-300 focus:ring-green-500 focus:ring-2">
-                <label for="flavour-1" class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">Sweet</label>
+                <label for="flavour-1" class="ml-2 text-sm font-medium text-gray-900">Sweet</label>
               </div>
               <div class="flex items-center mr-4">
                 <input id="flavour-2" name="flavours[1]" type="checkbox" {{ (($post->flavours) && in_array("spicy", $post->flavours)) ? 'checked' : '' }} value="spicy" class="w-4 h-4 text-green-600 bg-gray-100 rounded border-gray-300 focus:ring-green-500 focus:ring-2">
-                <label for="flavour-2" class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">Spicy</label>
+                <label for="flavour-2" class="ml-2 text-sm font-medium text-gray-900">Spicy</label>
+              </div>
+              <div class="flex items-center mr-4">
+                <input id="flavour-3" name="flavours[2]" type="checkbox" {{ (($post->flavours) && (in_array("salty", $post->flavours)) ? 'checked' : '') }} value="salty" class="w-4 h-4 text-green-600 bg-gray-100 rounded border-gray-300 focus:ring-green-500 focus:ring-2">
+                <label for="flavour-3" class="ml-2 text-sm font-medium text-gray-900">Salty</label>
+              </div>
+              <div class="flex items-center mr-4">
+                <input id="flavour-4" name="flavours[3]" type="checkbox" {{ (($post->flavours) && (in_array("sour", $post->flavours)) ? 'checked' : '') }} value="sour" class="w-4 h-4 text-green-600 bg-gray-100 rounded border-gray-300 focus:ring-green-500 focus:ring-2">
+                <label for="flavour-4" class="ml-2 text-sm font-medium text-gray-900">Sour</label>
+              </div>
+              <div class="flex items-center mr-4">
+                <input id="flavour-5" name="flavours[4]" type="checkbox" {{ (($post->flavours) && (in_array("bitter", $post->flavours)) ? 'checked' : '') }} value="bitter" class="w-4 h-4 text-green-600 bg-gray-100 rounded border-gray-300 focus:ring-green-500 focus:ring-2">
+                <label for="flavour-5" class="ml-2 text-sm font-medium text-gray-900">Bitter</label>
               </div>
             </div>
           </div>
@@ -104,16 +116,16 @@
             <p class="shrink w-2/12">Skill level</p>
             <div>
               <div class="flex items-center mb-4">
-                <input id="skill-level-1" type="radio" value="easy" name="skill-level" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600" checked>
-                <label for="skill-level-1" class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">Easy</label>
+                <input id="skill-level-1" type="radio" value="easy" name="skill-level" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500" checked>
+                <label for="skill-level-1" class="ml-2 text-sm font-medium text-gray-900">Easy</label>
               </div>
               <div class="flex items-center mb-4">
                   <input id="skill-level-2" type="radio" value="medium" name="skill-level" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
-                  <label for="skill-level-2" class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">Medium</label>
+                  <label for="skill-level-2" class="ml-2 text-sm font-medium text-gray-900">Medium</label>
               </div>
               <div class="flex items-center">
                 <input id="skill-level-3" type="radio" value="hard" name="skill-level" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
-                <label for="skill-level-3" class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">Hard</label>
+                <label for="skill-level-3" class="ml-2 text-sm font-medium text-gray-900">Hard</label>
             </div>
             </div>
           </div>
